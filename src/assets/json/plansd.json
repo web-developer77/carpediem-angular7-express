@@ -1,0 +1,104 @@
+[
+	{
+		"id": 0,
+		"name": "Paquete primera clase",
+		"subscription": false,
+		"discount" : 50,
+		"fullPrice": 300,
+		"price": 150,
+		"classes": 1,
+		"expiration": 10
+	},
+	{
+		"id": 1,
+		"name": "Paquete 1 clase",
+		"subscription": false,
+		"discount" : 15,
+		"fullPrice": 300,
+		"price": 255,
+		"classes": 1,
+		"expiration": 30
+	},
+	{
+		"id": 2,
+		"name": "Paquete 5 clases",
+		"subscription": false,
+		"discount" : 15,
+		"fullPrice": 1450,
+		"price": 1232,
+		"classes": 5,
+		"expiration": 60
+	},
+	{
+		"id": 3,
+		"name": "Paquete 10 clases",
+		"subscription": false,
+		"discount" : 15,
+		"fullPrice": 2800,
+		"price":  2380,
+		"classes": 10,
+		"expiration": 120
+	},
+	{
+		"id": 4,
+		"name": "Paquete 25 clases",
+		"subscription": false,
+		"discount" : 15,
+		"fullPrice": 6250,
+		"price": 5312,
+		"classes": 25,
+		"expiration": 180
+	},
+	{
+
+		"id": 5,
+		"name": "Paquete 50 clases",
+		"subscription": false,
+		"discount" : 15,
+		"fullPrice": 10000,
+		"price": 9000,
+		"classes": 50,
+		"expiration": 365
+	},
+	{
+		"id": 6,
+		"name": "Paquete 20 clases en un mes",
+        "subscription": true,
+				"discount" : 0,
+				"fullPrice": 2850,
+		"price": 2850,
+		"classes": 20,
+		"expiration": 31,
+		"subscription_id": "pjviidqfkylmh9yafd9h"
+    },
+    {
+		"id": 7,
+		"name": "Paquete ilimitado un mes",
+        "subscription": true,
+				"discount" : 0,
+				"fullPrice":  3599,
+        "price":  3599,
+		"expiration": 31,
+		"subscription_id": "pvbdb9vmsaqhdxbpxtbg"
+    },
+    {
+		"id": 8,
+		"name": "Paquete ilimitado un año",
+        "subscription": true,
+				"discount" : 0,
+				"fullPrice": 35999,
+		"price": 35999,
+		"expiration": 365,
+		"subscription_id": "peqwrlolsmoq2w10gpis"
+	},
+	{
+		"id": 9,
+		"name": "Paquete clases virtuales un mes",
+		"subscription": true,
+		"discount" : 0,
+		"fullPrice": 499,
+		"price": 499,
+		"expiration": 31,
+		"subscription_id": "ptrtiwmdadhp1epon1t1"
+    }
+]

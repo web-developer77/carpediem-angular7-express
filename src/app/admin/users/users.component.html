@@ -1,0 +1,136 @@
+<div class="content">
+  <div class="user">
+    <div class="box user_top">
+      <div class="reports_top">
+        <h2 class="reports_title">REPORTES</h2>
+      </div>
+      <div class="reports_bottom">
+        <div class="reports_box">
+          <span class="reports_number">{{ users_count }}</span>
+          <span class="reports_text">Usuarios</span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{ new_users }}</span>
+          <span class="reports_text">Nuevos clientes</span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{ birthday }}</span>
+          <span class="reports_text">Cumpleaños </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box user_bottom">
+    <div class="table_top">
+      <mat-form-field style="width: 30rem" appearance="outline">
+        <input
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Buscar"
+        />
+      </mat-form-field>
+      <div class="flex f-center" style="flex-wrap: nowrap">
+        <button
+          [routerLink]="['/admin/add-user']"
+          mat-button
+          mat-raised-button
+          class="btn-gold"
+          color="accent"
+        >
+          <span class="btn-gold_plus">+</span> Agregar usuario
+        </button>
+      </div>
+    </div>
+    <div style="margin-top: 1rem">
+      <button
+        mat-button
+        mat-raised-button
+        style="margin-right: 1rem"
+        (click)="downloadUsers()"
+      >
+        Descargar información
+      </button>
+    </div>
+    <div class="table_responsive">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let user" class="table-img_container">
+            <img
+              class="table-img"
+              [src]="user.src ? user.src : '/assets/icons/user.jpg'"
+              alt=""
+            />
+            <div>
+              {{ user.name }} {{ user.last_name }} <br />
+              <span class="email-text">{{ user.email }} </span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shoe_size">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ZAPATOS</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.shoe_size ? user.shoe_size : "N/A" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assistances">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ASISTENCIAS</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.assistances ? user.assistances : "N/A" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_session">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            ÚLTIMA SESIÓN
+          </th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.last_session ? getDate(user) : "N/A" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>TELÉFONO</th>
+          <td mat-cell *matCellDef="let user">{{ user.phone }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="plan">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>PLAN</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.plan ? user.plan : "N/A" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let user">
+            <img
+              (click)="deleteUser(user)"
+              class="table-icon"
+              src="/assets/icons/basura.png"
+              alt="borrar"
+            />
+            <img
+              [routerLink]="['/admin/user', user.$key]"
+              class="table-icon"
+              src="/assets/icons/view.png"
+              alt="ver"
+              style="width: 3rem"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

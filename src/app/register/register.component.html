@@ -1,0 +1,84 @@
+<div class="lds-ring abs-center" *ngIf="loading"><div></div><div></div><div></div><div></div></div>
+<div class="register">
+  <div class="register_form f-50 fm-100">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <h2 class="register_title">¡Sé parte de nuestra comunidad!</h2>
+      <div class="flex">
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" name="name" placeholder="Nombre" ngModel required>
+          </mat-form-field>
+        </div>
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Apellido</mat-label>
+            <input matInput type="text" name="last_name" placeholder="Apellido" ngModel required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Fecha nacimiento</mat-label>
+            <input matInput id="born" name="born" ngModel [matDatepicker]="picker" (click)="picker.open()"
+              autocomplete="off" placeholder="Fecha nacimiento" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Teléfono de contacto</mat-label>
+            <input matInput type="phone" name="phone" placeholder="Teléfono de contacto" ngModel required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Mail</mat-label>
+            <input matInput type="mail" name="email" placeholder="Mail" ngModel required>
+          </mat-form-field>
+        </div>
+
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Confirmar mail</mat-label>
+            <input matInput type="mail" name="email_confirmation" placeholder="Confirmar mail" ngModel required>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="flex">
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" name="password" placeholder="Contraseña" ngModel required>
+          </mat-form-field>
+        </div>
+        <div class="f-50 fm-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Confirmar contraseña</mat-label>
+            <input matInput type="password" name="password_confirmation" placeholder="Confirmar contraseña" ngModel
+              required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex">
+        <button type="submit" class="btn_login width-100" [disabled]='loading' [ngClass]="{'active': loading}">crear cuenta</button>
+        <p class="register_login">Ya tengo cuenta <span [routerLink]="['/login']" class="register_login-link">
+            &nbsp; Inicia Sesión</span> </p>
+      </div>
+
+      <div class="mar-t-6 flex space-between">
+        <p class ="terms" (click)="openTerms()">Términos y condiciónes</p>
+        <p class ="terms" (click)="openNotice()">Aviso de privacidad</p>
+      </div>
+    </form>
+  </div>
+  <div class="img f-50 web"></div>
+</div>

@@ -1,0 +1,233 @@
+<div class="content">
+  <div *ngIf="loadingEvents" class="lds-ring abs-center" style="z-index: 999">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="box calendar">
+    <div class="calendar_top">
+      <mat-form-field style="width: 30rem" appearance="outline">
+        <input
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Buscar"
+        />
+      </mat-form-field>
+      <button
+        [routerLink]="['/admin/add-class']"
+        mat-button
+        mat-raised-button
+        class="btn-gold"
+        color="accent"
+      >
+        <span class="btn-gold_plus">+</span> Agregar clase
+      </button>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="CALENDARIO">
+        <div style="margin-top: 1rem">
+          <button
+            mat-button
+            mat-raised-button
+            style="margin-right: 1rem"
+            [color]="filter == 'Indoor Cycling' ? 'accent' : 'secondary'"
+            (click)="filterEvents('Indoor Cycling')"
+          >
+            Cycling
+          </button>
+          <button
+            mat-button
+            mat-raised-button
+            style="margin-right: 1rem"
+            [color]="filter == 'Yoga' ? 'accent' : 'secondary'"
+            (click)="filterEvents('Yoga')"
+          >
+            Yoga
+          </button>
+          <button
+            mat-button
+            mat-raised-button
+            [color]="filter == 'Funcional' ? 'accent' : 'secondary'"
+            (click)="filterEvents('Funcional')"
+          >
+            Funcional
+          </button>
+        </div>
+        <div id="calendar" class="calendar_container"></div>
+      </mat-tab>
+      <mat-tab label="LISTA">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="instructor.name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              INSTRUCTOR
+            </th>
+            <td mat-cell *matCellDef="let class">
+              <img
+                class="table-img"
+                [src]="
+                  class.instructor.src
+                    ? class.instructor.src
+                    : '/assets/icons/user.jpg'
+                "
+                alt=""
+              />
+              {{ class.instructor.name }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>CLASE</th>
+            <td mat-cell *matCellDef="let class">{{ class.type }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="days">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>DÍAS</th>
+            <td mat-cell *matCellDef="let class">
+              <ul>
+                <li *ngFor="let day of class.days">{{ getDay(day) }}</li>
+              </ul>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="start">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>HORARIO</th>
+            <td mat-cell *matCellDef="let class">
+              {{ class.start }} a {{ class.end }}
+            </td>
+            <!-- <td mat-cell *matCellDef="let class"> {{class.date.toDate() | date:'dd/MM/yyyy'}} </td> -->
+          </ng-container>
+
+          <ng-container matColumnDef="repeat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>REPETIR</th>
+            <td mat-cell *matCellDef="let class">{{ class.repeat }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ACCIONES</th>
+            <td mat-cell *matCellDef="let class" style="position: relative">
+              <img
+                class="table-icon"
+                (click)="deleteClass(class)"
+                src="/assets/icons/basura.png"
+                alt=""
+              />
+              <img
+                class="table-icon"
+                (click)="class.more = !class.more"
+                src="/assets/icons/mas-acciones.png"
+                alt=""
+              />
+              <div class="more" [hidden]="!class.more">
+                <ul (click)="class.more = !class.more">
+                  <li [routerLink]="['/admin/edit-class', class.$key]">
+                    Editar Clase
+                  </li>
+                  <li (click)="addNote(class.$key)">
+                    {{ class.note ? "Ver nota" : "Agregar nota" }}
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-tab>
+      <mat-tab label="AVISOS">
+        <div class="flex">
+          <div class="f-60 padd-2 right-border">
+            <h3>Avisos de calendario</h3>
+            <form #f="ngForm" (ngSubmit)="createNotice(f)">
+              <div class="flex">
+                <div class="f-50 fm-100">
+                  <mat-form-field
+                    appearance="outline"
+                    [hideRequiredMarker]="true"
+                  >
+                    <mat-label>Fecha</mat-label>
+                    <input
+                      matInput
+                      name="date"
+                      [(ngModel)]="notice.date"
+                      [matDatepicker]="picker"
+                      (click)="picker.open()"
+                      autocomplete="off"
+                      required
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Titulo del aviso</mat-label>
+                <input
+                  name="title"
+                  [(ngModel)]="notice.title"
+                  matInput
+                  placeholder="Ejemplo día no laboral"
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Descripción del aviso</mat-label>
+                <input
+                  name="message"
+                  [(ngModel)]="notice.message"
+                  matInput
+                  placeholder="¿Qué deberia decir el aviso? ¡ser breve!"
+                />
+              </mat-form-field>
+
+              <div class="flex flex-end mar-t-2">
+                <button
+                  type="button"
+                  mat-button
+                  mat-raised-button
+                  class="btn_white"
+                  color="secondary"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  mat-button
+                  mat-raised-button
+                  class="btn_gold"
+                  color="accent"
+                >
+                  Crear aviso
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="f-40 flex-inverse">
+            <!-- <ngx-slick-carousel style="overflow: hidden; max-width: 32vw" class="carousel" #slickModal="slick-carousel"
+[config]="slideConfig">
+<div ngxSlickItem *ngFor="let notice of notices" class="slide">
+<div class="box_brown">
+<h5 class="box_title">{{notice.title}}</h5>
+<span>{{notice.date}}</span>
+<p class="box_text">{{notice.message}}</p>
+</div>
+</div>
+</ngx-slick-carousel> -->
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

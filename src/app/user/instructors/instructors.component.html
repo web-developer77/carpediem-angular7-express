@@ -1,0 +1,113 @@
+<section
+  class="black-container intro-container slider-instructors flex f-center"
+>
+  <div class="container">
+    <div class="btn-container">
+      <button
+        class="gold-hover top-btn"
+        (click)="filterInstructor('Indoor Cycling')"
+        [ngClass]="{ 'active-btn': filter == 'Indoor Cycling' }"
+      >
+        Indoor Cycling
+      </button>
+      <button
+        class="gold-hover top-btn"
+        (click)="filterInstructor('Yoga')"
+        [ngClass]="{ 'active-btn': filter == 'Yoga/Funcional' }"
+      >
+        Yoga / Funcional / Funcional
+      </button>
+    </div>
+
+    <div class="title-line">
+      <h1 class="title-line__main">Instructores</h1>
+    </div>
+  </div>
+
+  <div class="slider-instructors__container">
+    <span class="flex space-around arrows">
+      <img
+        src="/assets/icons/gold/left-arrow.png"
+        class="back-arrow"
+        (click)="moveInstructorsSlider(instructorSliderCursor - 1)"
+        [hidden]="instructorSliderCursor == 1"
+        alt=""
+      />
+      <img
+        src="/assets/icons/gold/right-arrow.png"
+        class="foward-arrow"
+        (click)="moveInstructorsSlider(instructorSliderCursor + 1)"
+        [hidden]="instructorSliderCursor == instructors.length"
+        alt=""
+      />
+    </span>
+
+    <div class="row">
+      <div
+        [ngStyle]="{
+          transform: instructorSliderPosition,
+          '-webkit-transform': instructorSliderPosition
+        }"
+        class="col-11 col-sm-11 col-md-11 col-lg-8 instructors-slider"
+      >
+        <div
+          *ngFor="let instructor of instructors; let i = index"
+          [ngClass]="{
+            active: instructorSliderCursor === i + 1,
+            'instructor-intro': true
+          }"
+          (click)="moveInstructorsSlider(i + 1)"
+        >
+          <div class="img">
+            <img
+              width="470"
+              style="object-fit: cover"
+              [src]="
+                instructor.src ? instructor.src : '/assets/generales/perfil.png'
+              "
+              alt=""
+            />
+            <div class="instructor-intro__name">
+              {{ instructor.name }} {{ instructor.last_name }}
+            </div>
+          </div>
+
+          <div class="instructor-intro__description">
+            <p
+              [innerHTML]="instructor.description | slice: 0:500"
+              [hidden]="mobile && !instructor.click"
+            ></p>
+            <a
+              class="btn btn-block btn-light"
+              [routerLink]="['/carpe/instructor', instructor.$key]"
+              style="width: 193.6px; height: 49.6px"
+              ><span
+                class="btn-cus"
+                (click)="instructor.click = !instructor.click"
+              >
+                Conoce más</span
+              ></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="pagination">
+      <li
+        *ngFor="let instructor of instructors; let i = index"
+        [ngClass]="{
+          active: instructorSliderCursor === i + 1,
+          'page-item': true
+        }"
+      >
+        <a class="page-link" (click)="moveInstructorsSlider(i + 1)">{{
+          i + 1
+        }}</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<app-membership></app-membership>
+<app-concept></app-concept>

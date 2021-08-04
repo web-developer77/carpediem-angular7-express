@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Notas</h2>
+<mat-dialog-content class="mat-typography">
+  <form #f="ngForm" (ngSubmit)="addNote(f)">
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label>Nota</mat-label>
+      <textarea name="note" [(ngModel)]="object.note" matInput required rows="10"></textarea>
+    </mat-form-field>
+
+    <button type="submit" mat-button mat-raised-button class="btn_gold " color="accent">Guardar</button>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cerrar</button>
+</mat-dialog-actions>

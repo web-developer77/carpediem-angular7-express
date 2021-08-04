@@ -1,0 +1,96 @@
+<div class="content">
+  <div *ngIf="loading" class="lds-ring abs-center" style="z-index: 999;">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="instructors">
+    <div class="box instructors_top">
+      <div class="reports_top">
+        <h2 class="reports_title">REPORTES</h2>
+      </div>
+      <div class="reports_bottom">
+        <div class="reports_box">
+          <span class="reports_number">{{instructor_count | number}}</span>
+          <span class="reports_text">Profesores </span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{lessons_count | number}}</span>
+          <span class="reports_text">Clases enseñadas</span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{riders | number}}</span>
+          <span class="reports_text">Asistencias</span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{spots | number}}</span>
+          <span class="reports_text">Lugares vacios </span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{occupancy | number : '1.2'}}%</span>
+          <span class="reports_text">Ocupación % </span>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box instructors_bottom">
+      <div class="table_top">
+        <mat-form-field  style="width: 30rem " appearance="outline">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar"> 
+          </mat-form-field>
+        <div class="flex f-center" style="flex-wrap: nowrap;">
+            <button  [routerLink]="['/admin/add-instructor']" mat-button mat-raised-button class="btn-gold " color="accent"> <span class="btn-gold_plus">+</span> Agregar instructor</button>
+        </div>
+      </div>
+
+       <table mat-table [dataSource]="dataSource" matSort  >
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> INSTRUCTOR </th>
+            <td mat-cell *matCellDef="let instructor" class="table-img_container"> 
+              <img class="table-img" [src]="instructor.src ? instructor.src : '/assets/icons/user.jpg'" alt="">
+              <div>
+                  {{instructor.name}} {{instructor.last_name}} <br>
+                  <span class="email-text">{{instructor.email}} </span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="class_type" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CLASE </th>
+            <td mat-cell *matCellDef="let instructor"> {{instructor.class_type}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="class_count"  >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> #CLASES ENSEÑADAS</th>
+            <td mat-cell *matCellDef="let instructor"> {{instructor.class_count | number}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="assistence" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#ASISTENCIAS </th>
+              <td mat-cell *matCellDef="let instructor"> {{instructor.assistence | number}} </td>
+            </ng-container>
+
+          <ng-container matColumnDef="occupancy" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> OCUPACION% </th>
+            <td mat-cell *matCellDef="let instructor"> {{instructor.occupancy  | number : '1.2' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+              <td mat-cell *matCellDef="let instructor">
+                  <img class="table-icon" (click)="deleteInstructor(instructor)" src="/assets/icons/basura.png" alt="">
+                  <img class="table-icon"[routerLink]="['/admin/edit-instructor', instructor.$key]"  src="/assets/icons/view.png" alt="">
+              </td>
+            </ng-container>
+
+         
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>

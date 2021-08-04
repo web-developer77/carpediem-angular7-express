@@ -1,0 +1,131 @@
+
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.about{
+  background:  url('/assets/generales/about.jpg') !important;
+
+}
+.studio-page {
+  .intro-container {
+    @media screen and (max-width: 768px) {
+      height: 100%;
+    }
+  }
+
+  &_text {
+    font-family: Avenir;
+    font-size: 18px;
+    font-weight: 800;
+    padding-left: 44px;
+    padding-top: 22px;
+    margin-bottom: 18px;
+    text-align: justify;
+    line-height: 1.5;
+    color: #d6d6d5 !important;
+  }
+}
+
+
+.instructors-container{
+  &__photo{
+      position: relative;
+      img{
+          width: 80%;
+      }
+  }
+  &__photo2{
+      padding-left: 50px;
+      img{
+          display: none;
+          @media screen and (min-width: 992px){
+              display: block;
+          }
+      }
+  }
+  &__description{
+      padding-right: 60px;
+      .title-line{
+          margin-bottom: 15px;
+          &__secondary{
+              text-transform: uppercase;
+              font-size: 18px;
+              font-weight: 700;
+              margin-top: 2.8rem
+          }
+      } 
+      p{
+          color:$gray-medium;
+          margin-bottom: 25px;
+          font-size: 18px;
+      }
+  }
+  &__info{
+      @media screen and (min-width: 992px){
+          margin-top: 204px;
+      }
+      .instructor-text {
+        font-size: 23px;
+        margin-bottom: 20px;
+        line-height: 1.29;
+        text-align: justify;
+        font-weight: bold;
+        color: #3a3a3a !important;
+      }
+      .instructor-text2 {
+          margin-bottom: 27px;
+          color: $gray-medium;
+          font-weight: 300;
+          font-size: 20px;
+      }
+      .instructor-text3{
+          font-size: 18px;
+          margin-top: 10px;
+          line-height: 2.5;
+          text-align: justify;
+          color: $gray-medium;
+      }
+
+  }
+}
+
+.img-both{
+  position: relative;
+  padding: 22px;
+  img{
+      display: none;
+      @media screen and (min-width: 992px){
+          display: block;
+      }
+  }
+  &__big{
+      @media screen and (max-width: 1200px){
+          width: 300px;
+      }
+  }
+  &__small{
+      position:absolute;
+      top: 277px;
+      left: 269px;
+      @media screen and (max-width: 1200px){
+          width: 250px;
+      }
+  }   
+}
+
+
+
+.studio_title{
+  color: #FFFFFF;
+  font-family: Avenir;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-decoration: underline;
+}
+
+.black-container {
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
+}

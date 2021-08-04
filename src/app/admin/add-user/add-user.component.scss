@@ -1,0 +1,125 @@
+@import '../../../assets/css/admin.scss';
+
+
+.add {
+    display: block;
+  
+    &_form {
+      padding: 2rem;
+      flex: 0 0 65%;
+    }
+  
+    &_side {
+      flex: 0 0 35%;
+    }
+  
+  }
+  
+  
+  label {
+    color: #252631;
+    font-family: 'Roboto';
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+  
+  .user-box {
+    background-color: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 4px;
+    width: 97.6%;
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+  
+  .settings {
+    display: block;
+  
+    &_box {
+      display: block;
+      padding: 2rem;
+      margin: 3rem;
+      background-color: #FCFAF8;
+      border: 1px solid #DACABA;
+      border-radius: 4px;
+    }
+  
+    &_title {
+      color: #252631;
+      font-family: Roboto;
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 3rem;
+    }
+  
+    &_text {
+      color: #98A9BC;
+      font-family: Roboto;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 1rem 0;
+    }
+  }
+  
+  .mylabel {
+    color: #778CA2;
+    font-family: Roboto;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1 !important;
+    white-space: normal !important;
+  }
+  
+  .create-card {
+    font-family: Roboto;
+
+    .active-card {
+      border-bottom: 2px solid #a47b52 !important;
+    }
+
+    .create-card__type {
+      border: none;
+    }
+
+    &__menu{
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+        ul{
+            li{
+                display: inline;
+                padding: 0 10px;
+            }
+        }
+    }
+    &__type{
+        text-indent: -99999px;
+        width: 48px;
+        padding-bottom: 56px;
+        &.visa{
+            background: url('/assets/payment-form/visa.png') no-repeat;
+            background-size: 48px;
+        }
+        &.master{
+            background: url('/assets/payment-form/mastercard.png') no-repeat;
+            background-size: 48px;
+        }
+        &.american{
+            background: url('/assets/payment-form/american-express.png') no-repeat;
+            background-size: 48px;
+        }
+        &.paypal{
+            background: url('/assets/payment-form/paypal.png') no-repeat;
+            background-size: 48px;
+        }
+        &.add-card{
+            background: url('/assets/payment-form/add-card.svg');
+            background-repeat: no-repeat;
+            background-size: 48px;
+        }
+    }
+    &__info{
+        margin-top:30px;
+        background: white;
+        padding: 40px 30px;
+    }
+  }

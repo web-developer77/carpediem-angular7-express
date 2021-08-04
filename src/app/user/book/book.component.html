@@ -1,0 +1,818 @@
+<div *ngIf="loadingClasses" class="lds-ring abs-center">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<img
+  src="/assets/icons/gold/left-arrow.png"
+  class="back-arrow"
+  (click)="prevStep()"
+  [hidden]="bookProcess?.index == 0 || bookProcess?.index == 3"
+  alt=""
+/>
+
+<section
+  class="book-calendar-container black-container"
+  *ngIf="bookProcess?.index == 0"
+>
+  <div class="container">
+    <div class="title">
+      <i class="icon-Reservar_clase-_off"></i>
+      <h2 class="book-title">
+        DEL {{ bookProcess.week_start | slice: 0:-8 }} AL
+        {{ bookProcess.week_end | slice: 0:-8 }}
+      </h2>
+      <div class="flex space-between space-mobile">
+        <span>
+          <button
+            class="gold-hover top-btn"
+            (click)="prevWeek()"
+            [disabled]="week_index == 0"
+          >
+            Anterior
+          </button>
+          <button
+            class="gold-hover top-btn"
+            (click)="nextWeek()"
+            [disabled]="week_index == 3"
+          >
+            Siguiente
+          </button>
+        </span>
+
+        <span>
+          <button
+            class="gold-hover top-btn"
+            (click)="filter = 'Indoor Cycling'"
+            [ngClass]="{ active: filter == 'Indoor Cycling' }"
+          >
+            Indoor Cycling
+          </button>
+          <button
+            class="gold-hover top-btn"
+            (click)="filter = 'Yoga'"
+            [ngClass]="{ active: filter == 'Yoga' }"
+          >
+            Yoga
+          </button>
+          <button
+            class="gold-hover top-btn"
+            (click)="filter = 'Funcional'"
+            [ngClass]="{ active: filter == 'Funcional' }"
+          >
+            Funcional
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <div class="book-calendar">
+      <div class="book-calendar__head">
+        <div class="row">
+          <div
+            *ngFor="let item of array(7); index as i"
+            class="col f-inverse"
+            [hidden]="!week[0]"
+          >
+            <p>
+              {{
+                bookProcess.date_start.add(1, "days")
+                  | moment: "dddd Do"
+                  | slice: 0:-1
+              }}
+            </p>
+            <div
+              *ngFor="
+                let class of classByDay[i]
+                  | filterClassbyType: filter
+                  | orderByHour
+              "
+            >
+              <div
+                *ngIf="checkStart(class, i)"
+                class="book-calendar__timetable"
+                (click)="classSelect(class, i)"
+              >
+                <p>
+                  <strong
+                    >{{ class.instructor.name.split(" ")[0] }}
+                    {{ class.instructor.name.split(" ")[1][0] }}</strong
+                  >
+                </p>
+                <p>
+                  <i style="text-transform: none">{{ class.description }}</i>
+                </p>
+                <p>{{ class.start }} a {{ class.end }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngFor="let item of array(7); index as i"
+            class="col f-inverse"
+            [hidden]="!week[1]"
+          >
+            <p>
+              {{
+                bookProcess.date_start.add(1, "days")
+                  | moment: "dddd Do"
+                  | slice: 0:-1
+              }}
+            </p>
+            <div
+              *ngFor="
+                let class of classByDay[i + 7]
+                  | filterClassbyType: filter
+                  | orderByHour
+              "
+            >
+              <div class="book-calendar__timetable" (click)="showAlert()">
+                <p>
+                  <strong
+                    >{{ class.instructor.name.split(" ")[0] }}
+                    {{ class.instructor.name.split(" ")[1][0] }}</strong
+                  >
+                </p>
+                <p>
+                  <i style="text-transform: none">{{ class.description }}</i>
+                </p>
+                <p>{{ class.start }} a {{ class.end }}</p>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngFor="let item of array(7); index as i"
+            class="col f-inverse"
+            [hidden]="!week[2]"
+          >
+            <p>
+              {{
+                bookProcess.date_start.add(1, "days")
+                  | moment: "dddd Do"
+                  | slice: 0:-1
+              }}
+            </p>
+            <div
+              *ngFor="
+                let class of classByDay[i + 14]
+                  | filterClassbyType: filter
+                  | orderByHour
+              "
+            >
+              <div class="book-calendar__timetable" (click)="showAlert()">
+                <p>
+                  <strong
+                    >{{ class.instructor.name.split(" ")[0] }}
+                    {{ class.instructor.name.split(" ")[1][0] }}</strong
+                  >
+                </p>
+                <p>
+                  <i style="text-transform: none">{{ class.description }}</i>
+                </p>
+                <p>{{ class.start }} a {{ class.end }}</p>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngFor="let item of array(7); index as i"
+            class="col f-inverse"
+            [hidden]="!week[3]"
+          >
+            <p>
+              {{
+                bookProcess.date_start.add(1, "days")
+                  | moment: "dddd Do"
+                  | slice: 0:-1
+              }}
+            </p>
+            <div
+              *ngFor="
+                let class of classByDay[i + 21]
+                  | filterClassbyType: filter
+                  | orderByHour
+              "
+            >
+              <div class="book-calendar__timetable" (click)="showAlert()">
+                <p>
+                  <strong
+                    >{{ class.instructor.name.split(" ")[0] }}
+                    {{ class.instructor.name.split(" ")[1][0] }}</strong
+                  >
+                </p>
+                <p>
+                  <i style="text-transform: none">{{ class.description }}</i>
+                </p>
+                <p>{{ class.start }} a {{ class.end }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<span *ngIf="bookProcess?.sub_class.type == 'Indoor Cycling'; else yoga">
+  <section
+    class="center black-container flex f-center"
+    id="instructor_background"
+    *ngIf="bookProcess?.index == 1"
+  >
+    <div class="book-bike text-center">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col">
+              <button
+                class="btn btn-transparent btn-circle bike-instructor active"
+              >
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">IN</p>
+                </i>
+              </button>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col">
+              <div class="title-line">
+                <h1 class="title-line__secondary">
+                  {{ bookProcess?.sub_class.instructor.name }}
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space"></div>
+      <div class="row book-bike__single">
+        <div class="col" *ngFor="let bike of array(2); index as i">
+          <button
+            class="btn btn-transparent btn-circle"
+            [ngClass]="{ active: isReserved(i + 1) }"
+            (click)="bikeSelect(i + 1)"
+          >
+            <i class="icon-Bici_Off">
+              <p class="bike-number">{{ i + 1 }}</p>
+            </i>
+          </button>
+        </div>
+        <div class="col"></div>
+        <div class="col" *ngFor="let bike of array(2); index as i">
+          <button
+            class="btn btn-transparent btn-circle"
+            [ngClass]="{ active: isReserved(i + 3) }"
+            (click)="bikeSelect(i + 3)"
+          >
+            <i class="icon-Bici_Off">
+              <p class="bike-number">{{ i + 3 }}</p>
+            </i>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="bookProcess?.sub_class.type == 'Indoor Cycling'">
+        <div class="space"></div>
+        <div class="row book-bike__single">
+          <div class="col" *ngFor="let bike of array(6); index as i">
+            <button
+              class="btn btn-transparent btn-circle"
+              [ngClass]="{ active: isReserved(i + 5) }"
+              (click)="bikeSelect(i + 5)"
+            >
+              <i class="icon-Bici_Off">
+                <p class="bike-number">{{ i + 5 }}</p>
+              </i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space"></div>
+        <div class="row book-bike__single">
+          <div
+            class="col social-distance"
+            *ngFor="let bike of array(7); index as i"
+          >
+            <button
+              class="btn btn-transparent btn-circle"
+              [ngClass]="{ active: isReserved(i + 11) }"
+              (click)="bikeSelect(i + 11)"
+            >
+              <i class="icon-Bici_Off">
+                <p class="bike-number">{{ i + 11 }}</p>
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col" *ngFor="let bike of array(2); index as i">
+              <button class="btn btn-transparent btn-circle" [ngClass]="{'active': isReserved(i+1)}"
+                (click)="bikeSelect(i + 1)">
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">{{i + 1}}</p>
+                </i>
+              </button>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col" *ngFor="let bike of array(2); index as i" (click)="bikeSelect(i + 4)">
+              <button *ngIf="bookProcess?.sub_class.type == 'Indoor Cycling'; else yoga"
+                class="btn btn-transparent btn-circle" [ngClass]="{'active': isReserved(i+4)}">
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">{{i + 4}}</p>
+                </i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="row">
+            <div class="col ">
+              <button class="btn btn-transparent btn-circle bike-instructor active">
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">IN</p>
+                </i>
+              </button>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col ">
+              <div class="title-line">
+                <h1 class="title-line__secondary">{{bookProcess?.sub_class.instructor.name}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col">
+              <button class="btn btn-transparent btn-circle " [ngClass]="{'active': isReserved(3)}"
+                (click)="bikeSelect(3)">
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">3</p>
+                </i>
+              </button>
+
+            </div>
+            <div class="col">
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col" *ngFor="let bike of array(2); index as i">
+              <button class="btn btn-transparent btn-circle " [ngClass]="{'active': isReserved(i+6)}"
+                (click)="bikeSelect(i + 6)">
+                <i class="icon-Bici_Off">
+                  <p class="bike-number">{{i + 6}}</p>
+                </i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="space"></div>
+      <div class="row book-bike__single">
+        <div class="col" *ngFor="let bike of array(9); index as i">
+          <button class="btn btn-transparent btn-circle" [ngClass]="{'active': isReserved(i+8)}"
+            (click)="bikeSelect(i + 8)">
+            <i class="icon-Bici_Off">
+              <p class="bike-number">{{ i + 8}}</p>
+            </i>
+          </button>
+        </div>
+      </div>
+
+
+      <div *ngIf="bookProcess?.sub_class.type == 'Indoor Cycling'">
+        <div class="space"></div>
+        <div class="row book-bike__single">
+          <div class="col" *ngFor="let bike of array(10); index as i">
+            <button class="btn btn-transparent btn-circle" [ngClass]="{'active': isReserved(i+17)}"
+              (click)="bikeSelect(i + 17)">
+              <i class="icon-Bici_Off">
+                <p class="bike-number">{{ i + 17}}</p>
+              </i>
+            </button>
+          </div>
+        </div>
+
+
+
+        <div class="space"></div>
+        <div class="row book-bike__single">
+          <div class="col" *ngFor="let bike of array(8); index as i">
+            <button class="btn btn-transparent btn-circle" [ngClass]="{'active': isReserved(i + 27)}"
+              (click)="bikeSelect(i + 27)">
+              <i class="icon-Bici_Off">
+                <p class="bike-number">{{ i + 27}}</p>
+              </i>
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+      <p style="margin-top: 10px">
+        *La lista de espera es presencial en el estudio por orden de llegada.<br />
+        Los lugares de la primera fila son laterales, a la altura del
+        instructor.
+      </p>
+    </div>
+  </section>
+</span>
+
+<ng-template #yoga>
+  <section
+    class="center black-container flex f-center"
+    id="yoga_background"
+    *ngIf="bookProcess?.index == 1"
+  >
+    <div class="book-bike text-center">
+      <div class="row">
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col" *ngFor="let bike of array(1); index as i">
+              <img
+                class="btn btn-transparent btn-circle clean"
+                src="/assets/icons/yoga.svg"
+                [ngClass]="{ 'active-bike': isReserved(i + 1) }"
+                (click)="bikeSelect(i + 1)"
+              />
+              <p class="bike-number" style="margin-top: -20px">{{ i + 1 }}</p>
+            </div>
+            <div class="w-100 space"></div>
+            <div
+              class="col"
+              *ngFor="let bike of array(1); index as i"
+              (click)="bikeSelect(i + 3)"
+            >
+              <img
+                class="btn btn-transparent btn-circle clean"
+                src="/assets/icons/yoga.svg"
+                [ngClass]="{ 'active-bike': isReserved(i + 3) }"
+                (click)="bikeSelect(i + 3)"
+              />
+              <p class="bike-number" style="margin-top: -20px">{{ i + 3 }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="row">
+            <div class="col">
+              <img
+                class="btn btn-transparent btn-circle clean active"
+                src="/assets/icons/yoga.svg"
+                style="width: 100px; height: 100px"
+              />
+              <p class="bike-number" style="margin-top: -20px">IN</p>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col">
+              <div class="title-line">
+                <h1 class="title-line__secondary">
+                  {{ bookProcess?.sub_class.instructor.name }}
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col">
+              <img
+                class="btn btn-transparent btn-circle clean"
+                src="/assets/icons/yoga.svg"
+                [ngClass]="{ 'active-bike': isReserved(2) }"
+                (click)="bikeSelect(2)"
+              />
+              <p class="bike-number" style="margin-top: -20px">2</p>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col" *ngFor="let bike of array(1); index as i">
+              <img
+                class="btn btn-transparent btn-circle clean"
+                src="/assets/icons/yoga.svg"
+                [ngClass]="{ 'active-bike': isReserved(i + 4) }"
+                (click)="bikeSelect(i + 4)"
+              />
+              <p class="bike-number" style="margin-top: -20px">{{ i + 4 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space"></div>
+      <div class="row book-bike__single">
+        <div class="col">
+          <img
+            class="btn btn-transparent btn-circle clean"
+            src="/assets/icons/yoga.svg"
+            [ngClass]="{ 'active-bike': isReserved(5) }"
+            (click)="bikeSelect(5)"
+          />
+          <p class="bike-number" style="margin-top: -20px">5</p>
+        </div>
+        <div class="col">
+          <img
+            class="btn btn-transparent btn-circle clean"
+            src="/assets/icons/yoga.svg"
+            [ngClass]="{ 'active-bike': isReserved(6) }"
+            (click)="bikeSelect(6)"
+          />
+          <p class="bike-number" style="margin-top: -20px">6</p>
+        </div>
+      </div>
+      <div class="space"></div>
+      <div class="row book-bike__single_2">
+        <div class="col">
+          <img
+            class="btn btn-transparent btn-circle clean"
+            src="/assets/icons/yoga.svg"
+            [ngClass]="{ 'active-bike': isReserved(7) }"
+            (click)="bikeSelect(7)"
+          />
+          <p class="bike-number" style="margin-top: -20px">7</p>
+        </div>
+        <div class="col">
+          <img
+            class="btn btn-transparent btn-circle clean"
+            src="/assets/icons/yoga.svg"
+            [ngClass]="{ 'active-bike': isReserved(8) }"
+            (click)="bikeSelect(8)"
+          />
+          <p class="bike-number" style="margin-top: -20px">8</p>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col" *ngFor="let bike of array(2); index as i">
+              <img class="btn btn-transparent btn-circle clean" src="/assets/icons/yoga.svg"
+                [ngClass]="{'active-bike': isReserved(i + 1)}" (click)="bikeSelect(i + 1)">
+              <p class="bike-number" style="margin-top: -20px;">{{i + 1}}</p>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col" *ngFor="let bike of array(2); index as i" (click)="bikeSelect(i + 4)">
+              <img class="btn btn-transparent btn-circle clean" src="/assets/icons/yoga.svg"
+                [ngClass]="{'active-bike': isReserved(i + 4)}" (click)="bikeSelect(i + 4)">
+              <p class="bike-number" style="margin-top: -20px;">{{i + 4}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="row">
+            <div class="col ">
+              <img class="btn btn-transparent btn-circle clean active" src="/assets/icons/yoga.svg"
+                style="width: 100px;height: 100px;">
+              <p class="bike-number" style="margin-top: -20px;">IN</p>
+            </div>
+            <div class="w-100 space"></div>
+            <div class="col ">
+              <div class="title-line">
+                <h1 class="title-line__secondary">{{bookProcess?.sub_class.instructor.name}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row book-bike__single">
+            <div class="col">
+              <img class="btn btn-transparent btn-circle clean" src="/assets/icons/yoga.svg"
+                [ngClass]="{'active-bike': isReserved(3)}" (click)="bikeSelect(3)">
+              <p class="bike-number" style="margin-top: -20px;">3</p>
+            </div>
+            <div class="col">
+            </div>
+            <div class="w-100 space"></div>
+            <div class="w-100 space"></div>
+            <div class="col" *ngFor="let bike of array(2); index as i">
+              <img class="btn btn-transparent btn-circle clean" src="/assets/icons/yoga.svg"
+                [ngClass]="{'active-bike': isReserved(i+6)}" (click)="bikeSelect(i+6)">
+              <p class="bike-number" style="margin-top: -20px;">{{i + 6}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space"></div>
+      <div class="row book-bike__single">
+        <div class="col" *ngFor="let bike of array(8); index as i">
+          <img lass="btn btn-transparent btn-circle clean" src="/assets/icons/yoga.svg"
+            [ngClass]="{'active-bike': isReserved( i + 8)}" (click)="bikeSelect( i + 8)">
+          <p class="bike-number" style="margin-top: -20px;">{{ i + 8}}</p>
+        </div>
+      </div> -->
+      <p style="margin-top: 10px">
+        *La lista de espera es presencial en el estudio por orden de llegada.
+      </p>
+    </div>
+  </section>
+</ng-template>
+
+<!-- EXTRAS -->
+<section class="pages-container flex f-center" *ngIf="bookProcess?.index == 2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+        <div *ngIf="loading" class="lds-ring abs-center">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <span class="ring-text">Procesando su pago...</span>
+        </div>
+        <div class="extras">
+          <div class="pages-container__head">
+            <i class="icon-Regaderas_vestidores_Off"></i>
+            <div class="title-line">
+              <h1 class="title-line__secondary">Extras</h1>
+            </div>
+            <p>
+              Escoge algún extra que te gustaría para completar tu experiencia
+            </p>
+          </div>
+
+          <div>
+            <div class="row">
+              <div class="col">
+                <div class="extras__type">
+                  <i [class]="extras[0].icon"></i>
+                  <div>
+                    <p class="extras__name">
+                      <strong>{{ extras[0].name }}</strong>
+                    </p>
+                    <p class="extras__price">
+                      <strong>${{ extras[0].price }}</strong>
+                    </p>
+                    <div class="extras__select">
+                      <input
+                        type="button"
+                        value="-"
+                        (click)="
+                          extras[0].ammount > 0
+                            ? (extras[0].ammount = extras[0].ammount - 1)
+                            : 'none'
+                        "
+                      />
+                      <input
+                        type="text"
+                        name="extra1"
+                        [(ngModel)]="extras[0].ammount"
+                      />
+                      <input
+                        type="button"
+                        value="+"
+                        (click)="extras[0].ammount = extras[0].ammount + 1"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-end">
+              <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+                <button
+                  class="btn btn-black btn-lg btn-block"
+                  (click)="selectExtras()"
+                >
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <img src="/assets/generales/extras.jpg" class="extras-img" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+<!-- THANKYOU -->
+
+<section
+  class="pages-container flex flex-center"
+  *ngIf="bookProcess?.index == 3"
+>
+  <div class="container flex f-center" style="margin-top: 70px">
+    <div class="row justify-content-start">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+            <div class="thank-you-page">
+              <div class="text-center pages-container__head">
+                <i class="icon-Gracias_por_tu_compra_Off"></i>
+                <div class="title-line">
+                  <h1 class="title-line__secondary">Gracias por tu compra</h1>
+                </div>
+                <p>
+                  Tu clase ha sido reservada para el
+                  {{ bookProcess?.sub_class.date }} con
+                  {{ bookProcess?.sub_class.instructor.name }} a las
+                  {{ bookProcess?.sub_class.start }}. <br />
+                  ¡Nos vemos pronto!
+                </p>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-6">
+                  <button
+                    class="btn btn-light btn-block"
+                    [routerLink]="['/carpe/profile', user.$key]"
+                  >
+                    IR A MI PERFIL
+                  </button>
+                </div>
+              </div>
+              <div class="thank-you-page__section">
+                <div class="row">
+                  <div class="col">
+                    <div class="thank-you-page__info">
+                      <img
+                        width="19"
+                        src="./images/generales/direccion.png"
+                        alt=""
+                      />
+                      <p><strong>Dirección</strong></p>
+                      <p class="text-typ">
+                        <span style="font-weight: bold">Outdoors Studio:</span
+                        ><br />
+                        Everest Wellness Center Monte Everest 635, Lomas de
+                        Chapultepec, Miguel Hidalgo, 11000, CDMX
+                      </p>
+                      <p class="text-typ">
+                        <span style="font-weight: bold">Studio (cerrado):</span
+                        ><br />
+                        Av. Paseo de las Palmas 781, Piso C2 Lomas de
+                        Chapultepec, 11000 Ciudad de México, CDMX
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="thank-you-page__info">
+                      <img
+                        width="19"
+                        src="./images/generales/horarios.png"
+                        alt=""
+                      />
+                      <p><strong>Horarios</strong></p>
+                      <p class="text-typ">
+                        Lunes a Jueves 6:00am a 10:00pm <br />
+                        Viernes 6:30am a 3:00pm <br />
+                        Sábado 8:30am a 3:00pm <br />
+                        Domingo 9:00am a 3:00pm <br />
+                      </p>
+                      <div
+                        class="thank-you-page__schedule"
+                        style="display: none"
+                      >
+                        <ul>
+                          <li>
+                            <button>Apple</button>
+                          </li>
+                          <li>
+                            <button>Google</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="thank-you-page__info">
+                      <img
+                        width="19"
+                        src="./images/generales/mail.png"
+                        alt=""
+                      />
+                      <p><strong>Email</strong></p>
+                      <p class="text-typ">hola@carpe-diem.mx</p>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="thank-you-page__info">
+                      <img
+                        width="19"
+                        src="./images/generales/telefono.png"
+                        alt=""
+                      />
+                      <p><strong>Télefono</strong></p>
+                      <p class="text-typ">(55) 1710 8252</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="bookProcess?.index == 0 || bookProcess?.index == 1">
+  <app-membership></app-membership>
+</div>

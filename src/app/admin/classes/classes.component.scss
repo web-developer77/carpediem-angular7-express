@@ -1,0 +1,90 @@
+@import '../../../assets/css/admin.scss';
+
+
+.calendar {
+  display: block;
+  padding: 2rem;
+
+  &_top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #F2F4F6;
+  }
+
+  &_search {
+    background-color: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 4px;
+    width: 20rem;
+    height: 3rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+
+    &::placeholder {
+      color: #5D6C76;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #5D6C76;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    &::-moz-placeholder {
+      color: #5D6C76;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    &:-ms-input-placeholder {
+      color: #5D6C76;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+
+  &_container {
+    margin-top: 1rem;
+  }
+}
+
+.instructor-img{
+  width: 6rem;
+}
+
+.table-icon{
+  width: 2rem;
+  margin: 0 1rem;
+  float: right;
+}
+
+.loading-events {
+  font-size: 20px;
+  padding: 20px 0 10px;
+}
+
+td.mat-cell{
+  padding: 1rem !important;
+}
+
+.gold-hover:hover {
+  background: #a47b52;
+}
+
+.active {
+  background: #a47b52;
+}
+
+.top-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  margin-right: 5px;
+  transition: .3s all;
+}

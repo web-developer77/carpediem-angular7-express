@@ -1,0 +1,368 @@
+<div *ngIf="loading || loadingUser" class="lds-ring abs-center">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div><span *ngIf="loading" class="ring-text">Procesando tu pago...</span>
+</div>
+
+
+<section class="intro-container membership-container" *ngIf="step[0]">
+  <div class="container">
+    <div class="title-line">
+      <h1 class="title-line__main">Comprar clases</h1>
+    </div>
+    <div class="row mar-t-3">
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="membership-container__head">
+          <div class="title-line">
+            <h2 class="title-line__secondary">Paquetes</h2>
+          </div>
+
+          <p class="d-md-none">
+            Paquetes de clases individuales
+          </p>
+        </div>
+        <div class="row membership-container__row">
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-0" (click)="selectPlan(0)">
+              <div class="membership-card__container">
+                <p class="membership-card__discount" *ngIf="packages[0].discount">{{packages[0].discount}}% de descuento
+                </p>
+                <p class="membership-card__title">Primera Clase</p>
+                <p class="membership-card__through" *ngIf="packages[0].discount">${{packages[0].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[0].price | number}}</p>
+                <p class="membership-card__expiraton">{{packages[0].expiration}} días de caducidad.</p>
+              </div>
+
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-1" (click)="selectPlan(1)">
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[1].discount">{{packages[1].discount}}% de
+                  descuento</div>
+                <p class="membership-card__title">Una Clase</p>
+                <p class="membership-card__through" *ngIf="packages[1].discount">${{packages[1].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[1].price | number}}</p>
+                <p class="membership-card__expiraton">{{packages[1].expiration}} días de caducidad.</p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="w-100 d-sm-none"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-2" (click)="selectPlan(2)">
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[2].discount">{{packages[2].discount}}% de
+                  descuento</div>
+                <p class="membership-card__title">5 Clases</p>
+                <p class="membership-card__through" *ngIf="packages[2].discount">${{packages[2].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[2].price | number}}</p>
+                <p class="membership-card__expiraton">{{packages[2].expiration}} días de caducidad.</p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-3" (click)="selectPlan(3)">
+                <div class="membership-card__container" >
+                    <div class="membership-card__discount" *ngIf="packages[3].discount" >{{packages[3].discount}}% de descuento</div>
+                    <p class="membership-card__title">10 Clases</p>
+                    <p class="membership-card__through" *ngIf="packages[3].discount">${{packages[3].fullPrice | number}}</p>
+                    <p class="membership-card__price">${{packages[3].price | number}}</p>
+                    <p class="membership-card__expiraton">{{packages[3].expiration}} días de caducidad.</p>
+                  </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="w-100 d-sm-none"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-4" (click)="selectPlan(4)">
+                <div class="membership-card__container">
+                    <div class="membership-card__discount" *ngIf="packages[4].discount" >{{packages[4].discount}}% de descuento</div>
+                    <p class="membership-card__title">25 Clases</p>
+                    <p class="membership-card__through" *ngIf="packages[4].discount">${{packages[4].fullPrice | number}}</p>
+                    <p class="membership-card__price">${{packages[4].price | number}}</p>
+                    <p class="membership-card__expiraton">{{packages[4].expiration}} días de caducidad.</p>
+                  </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-5" (click)="selectPlan(5)">
+                <div class="membership-card__container">
+                    <div class="membership-card__discount" *ngIf="packages[5].discount" >{{packages[5].discount}}% de descuento</div>
+                    <p class="membership-card__title">50 Clases</p>
+                    <p class="membership-card__through" *ngIf="packages[5].discount">${{packages[5].fullPrice | number}}</p>
+                    <p class="membership-card__price">${{packages[5].price | number}}</p>
+                    <p class="membership-card__expiraton">{{packages[5].expiration}} días de caducidad.</p>
+                  </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col">
+        <div class="membership-container__head">
+          <div class="title-line">
+            <h2 class="title-line__secondary">Membresías</h2>
+          </div>
+          <p class="d-md-none">Prioridad de la lista de espera: estarás en la parte superior de las listas de
+            espera.</p>
+        </div>
+
+
+        <div class="row membership-container__row">
+         
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card special" id="plan-9" (click)="selectPlan(9)">
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[9].discount" >{{packages[9].discount}}% de descuento</div>
+                <p class="w membership-card__title">Mes Ilimitado de clases virtuales</p>
+                <p class="w membership-card__through" *ngIf="packages[9].discount">${{packages[9].fullPrice | number}}</p>
+                <p class="w membership-card__price">${{packages[9].price | number}}</p>
+                <p class="w membership-card__expiraton">
+                  Esta membresía se renovará automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-7" (click)="selectPlan(6)">
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[6].discount" >{{packages[6].discount}}% de descuento</div>
+                <p class="membership-card__title">Mes Limitado</p>
+                <p class="membership-card__through" *ngIf="packages[6].discount">${{packages[6].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[6].price | number}}</p>
+                <p class="membership-card__expiraton">
+                  20 clases durante todo el mes. Esta membresía se renovará automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+        
+
+          
+          <div class="w-100 d-sm-none"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-7" (click)="selectPlan(7)">
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[7].discount" >{{packages[7].discount}}% de descuento</div>
+                <p class="membership-card__title">Mes Ilimitado</p>
+                <p class="membership-card__through" *ngIf="packages[7].discount">${{packages[7].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[7].price | number}}</p>
+                <p class="membership-card__expiraton">
+                  Esta membresía se renovará automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" id="plan-8" (click)="selectPlan(8)">
+
+              <div class="membership-card__container">
+                <div class="membership-card__discount" *ngIf="packages[8].discount" >{{packages[8].discount}}% de descuento</div>
+                <p class="membership-card__title">Año Ilimitado</p>
+                <p class="membership-card__through" *ngIf="packages[8].discount">${{packages[8].fullPrice | number}}</p>
+                <p class="membership-card__price">${{packages[8].price | number}}</p>
+                <p class="membership-card__expiraton">
+                  Esta membresía {{packages[8].discount ? 'NO' : ''}} se renovará automáticamente cada año.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="membership-legend">
+          *Las membresías se renovarán automáticamente.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="pages-container center flex f-center cart" *ngIf="step[1]">
+  <div class="row ">
+    <form class="flex f-center" #f="ngForm" (ngSubmit)="paymentForm(f)" *ngIf="!loadingUser">
+      <div *ngIf="user?.credit_cards?.length == 0 || new_card; else selectCard"
+        class="col-12 col-sm-12 col-md-12 col-lg-7">
+        <div class="pages-container__head">
+          <div class="title-line">
+            <h1 class="title-line__secondary">Carrito de compras</h1>
+          </div>
+          <p>Ingresa los datos de tu tarjeta:</p>
+        </div>
+
+        <div class="create-card">
+          <div class="create-card__menu">
+            <ul class='cards-list'>
+              <li><button [ngClass]="{'active-card': payment.card_number?.charAt(0) == 4 }"
+                  class="create-card__type visa">Visa</button></li>
+              <li><button [ngClass]="{'active-card': payment.card_number?.charAt(0) == 5 }"
+                  class="create-card__type master">Master</button></li>
+              <li><button [ngClass]="{'active-card':payment.card_number?.charAt(0) == 3 }"
+                  class="create-card__type american">american</button></li>
+            </ul>
+          </div>
+          <div class="create-card__info">
+            <div class="form-create">
+              <div class="row form-create__section">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                    <mat-label>Nombre completo de la tarjeta </mat-label>
+                    <input type="text" placeholder="nombre" name="holder_name" matInput
+                      [(ngModel)]="payment.holder_name" required>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-4 mt-md-0">
+                  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                    <mat-label>Número de la tarjeta</mat-label>
+                    <input placeholder="número" name="card_number" [(ngModel)]="payment.card_number"
+                      [cleave]="{creditCard: true}" required matInput>
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+              <div class="row form-create__section">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                  <div class="row">
+                    <div class="col-6">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                        <input type="text" maxlength="2" matInput placeholder="MM" name="expiration_month"
+                          [(ngModel)]="payment.expiration_month" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                        <input type="text" maxlength="2" matInput placeholder="AA" name="expiration_year"
+                          [(ngModel)]="payment.expiration_year" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+                  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                    <mat-label>Código de seguridad</mat-label>
+                    <input type="string" matInput maxlength="4" placeholder="3 o 4 digitos" name="cvv2"
+                      [(ngModel)]="payment.cvv2" required>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #selectCard>
+        <div class="pages-container__head">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div>
+              <h2 class="card-title">Forma de pago</h2>
+            </div>
+
+            <div class="payment-container" *ngFor="let card of credit_cards; index as i">
+              <div class="payment-container__card">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="type-card {{card.brand}}">
+                      {{card.brand}}
+                    </div>
+                  </div>
+                  <div class="col-5 text-right">
+                    <p> {{card.card_number}} </p>
+                  </div>
+                  <div class="col-5">
+                    <span class="btn btn-light btn-block f-center" [ngClass]="{'active': credit_card == card.id}"
+                      (click)="credit_card = card.id ">{{credit_card == card.id ? 'Seleccionada' : 'Seleccionar'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="btn btn-light btn-block f-center" (click)="new_card = true">Nueva tarjeta</span>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-5 mt-4 mt-lg-0">
+        <div class="resume-container">
+          <div class="pages-container__head">
+            <div class="title-line">
+              <h1 class="title-line__secondary" style="font-size: 22px;">Resumen de compra</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="membership-card">
+                <div class="membership-card__container">
+                  <p *ngIf="package.classes" class="membership-card__title">{{package.classes}} Clases</p>
+                  <p class="membership-card__price">{{package.price | currency}}</p>
+                  <p class="membership-card__expiraton" *ngIf="package.expiration">{{package.expiration}} días de
+                    caducidad.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="resume-container__discount">
+            <div class="row ">
+              <div class="col-5">
+                <p>
+                  <strong>Código de descuento</strong>
+                </p>
+              </div>
+              <div class="col-7 text-right">
+                <div class="flex discount-box">
+                  <input class="disccount-input" type="text" name="discount_code" [(ngModel)]="discount_code"
+                    placeholder="000 - 000">
+                  <span class="disccount-btn" (click)="applayDiscount()">Agregar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-container__total mar-t-2">
+            <div class="row">
+              <div class="col">
+                <p>
+                  <strong>Descuento: <span>{{disccount}}</span> </strong>
+                </p>
+              </div>
+              <div class="col text-right">
+                <p class="total-price"><strong>Total: <span
+                      class="total">{{this.package.price - disccount| currency}}</span></strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="form__btn">
+            <button [disabled]="loading" class="btn btn-brown btn-block" type="submit">COMPRAR </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

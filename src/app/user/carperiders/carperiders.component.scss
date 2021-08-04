@@ -1,0 +1,69 @@
+
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.caperiders-container{
+    position: relative;
+    &::before{
+        content: 'CARPE RIDERS';
+        font-family: helvetica;
+        position: absolute;
+        top: 114px !important;
+        right: 0px !important;
+        font-size: 108px !important;
+        font-weight: bold;
+        color: #c8c8c8;
+        opacity: 0.4;
+        letter-spacing: 0.5px;
+        width: 100%;
+        text-align: center;
+
+        @media screen and (min-width: 768px){
+            font-size: 80px !important;
+        }
+        @media screen and (min-width: 992px){
+            font-size: 108px !important;
+        }
+        @media screen and (min-width: 1200px){
+            font-size: 110px !important;
+        }
+    }
+    .title{
+        margin-bottom: 50px;
+        @media screen and (min-width: 768px){
+            margin-bottom: 100px;
+        }
+        h2{
+            font-size: 36px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.carperiders-card{
+    border-radius: 4px;
+    overflow: hidden;
+    @include shadows(0 4px 7px 0 rgba(0, 0, 1, 0.1));
+    &__photo{
+        img{
+            border-radius: 4px;
+            @include shadows(0 2px 4px 0 rgba(0, 0, 0, 0.2));
+        }
+    }
+    &__description{
+        padding: 10px 15px;
+        height: 69px;
+        img{
+            margin-right: 15px;
+        }
+        p{
+            color: #2c2e30;
+            font-size: 14px;
+            &:nth-child(even){
+                font-weight: 600;
+                margin: 9px 0 4px;
+            }
+        }
+    }
+}

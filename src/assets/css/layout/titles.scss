@@ -1,0 +1,26 @@
+.title-line{
+    border-bottom: 1px solid $gray-dark;
+    display: inline-block;
+    &__main{
+        font-size: 35px;
+        font-weight: 500;
+        color: $gray-dark;
+        @media screen and (min-width: 768px){
+            font-size: 48px;
+        }
+    }
+    &__secondary{
+        color: $gray-dark;
+        font-family: Avenir;
+        font-size: 28px;
+        font-weight: 900;
+        @media screen and (min-width: 768px){
+            font-size: 30px;
+        }
+    }
+    &__third{
+        font-size: 20px;
+        color: $gray-dark;
+        font-weight: 600;
+    }
+}

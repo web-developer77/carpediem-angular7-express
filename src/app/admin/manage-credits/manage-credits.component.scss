@@ -1,0 +1,62 @@
+@import "../../../assets/css/user.scss";
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+// CALENDAR
+.manage-credits-container {
+  width: 80%;
+  margin: auto;
+
+  .outdoors-container {
+    display: flex;
+  }
+
+  .btn-gold {
+    height: max-content;
+    color: #ffffff !important;
+    font-family: Roboto;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 9px 13px !important;
+    background-color: #a37b52 !important;
+    border-radius: 4px !important;
+    text-transform: uppercase;
+    cursor: pointer !important;
+
+    &_plus {
+      margin-right: 1rem;
+      line-height: 1px;
+      font-size: 2rem;
+    }
+  }
+
+  .operator-btn-group {
+    margin: 0px 10px;
+    .btn_whiteNgold {
+      color: #a37b52 !important;
+      min-width: 38px !important;
+      height: 38px;
+      border: 1px solid #a37b52 !important;
+      border-radius: 2px;
+      padding: 3px 3px !important;
+      text-transform: uppercase !important;
+      font-size: 1.2rem !important;
+    }
+  }
+
+  .expired-credits-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .credits-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    .inner-credits-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

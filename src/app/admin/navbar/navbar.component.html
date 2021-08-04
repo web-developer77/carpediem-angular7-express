@@ -1,0 +1,48 @@
+<div class="navbar">
+  <div class="navbar_left">
+    <img src="{{imgUrl}}" class="navbar_icon" alt="">
+    <span class="navbar_url">{{link}}</span>
+  </div>
+
+  <div class="navbar_right">
+    <div class="navbar_alert" (click)="toggleNot()">
+        <img classs="navbar_alert_icon" src="/assets/icons/alertas.png" alt="">
+        <!-- <span *ngIf="notifications.length > 0" class="navbar_notifications-number">{{notifications.length }}</span> -->
+    </div>
+    <!-- <div class="navbar_notifications">
+      <div class="flex f-center f-nowrap">
+        <img class="navbar_notifications-icon" src="/assets/icons/alertas.png" alt="">
+         <p class="navbar_notifications-title"> {{notifications.length }} Notificaciones</p> 
+      </div>
+
+      
+      <div *ngFor="let notification of notifications" class="flex f-center f-nowrap">
+          <img *ngIf="notification.type == 'error'" class="navbar_notifications-icon2" src="/assets/icons/alerta-rechazado.png" alt="">
+          <img  *ngIf="notification.type == 'success'" class="navbar_notifications-icon2" src="/assets/icons/alert-success.png" alt="">
+
+          <p class="navbar_notifications-text"> {{notification.message}}</p> -
+      </div>
+
+      <p class="navbar_notifications-read" (click)="clearNot()">Marcar todas como leídas</p> 
+      <span class="navbar_notifications-read" (click)="toggleNot()">Cerrar</span>
+    </div> -->
+    <div class="navbar_user">
+        <span >{{user?.name}} {{user?.last_name }}</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="navbar-mob">
+  <div class="navbar-mob_hamburger">
+    <input type="checkbox" class="navbar-mob__checkbox" id="navi-toggle">
+
+    <label for="navi-toggle" (click)="toggle()" class="navbar-mob__button">
+        <span class="navbar-mob__icon">&nbsp;</span>
+    </label>
+  </div>
+
+  <div class="navbar-mob_center">
+    <span class="navbar-mob_url">{{link}}</span>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="30px" viewBox="0 0 48 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>visa icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="008-pagar" transform="translate(-143.000000, -421.000000)" fill="#979797">
+            <g id="visa-icon" transform="translate(143.000000, 421.000000)">
+                <g id="card">
+                    <rect x="0" y="0" width="48" height="30" rx="4"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,115 @@
+<div *ngIf="loading" class="lds-ring abs-center" style="z-index: 999;"><div></div><div></div><div></div><div></div></div>
+<div class="content">
+  <div class="flex">
+    <div class="resumen right-border">
+      <div class="flex space-between">
+        <h3 class="gray-title">Resumen de tu progreso</h3>
+        <span class="black-text resumen_text">Todos los reportes</span>
+      </div>
+
+      <div class="box resumen_box">
+        <div class="riders-charts">
+          <div class="main-stats">
+            <div>
+              <span class="resumen_number">{{resumeNumber}}</span>
+              <p class="gray-title">{{currentStatsLabel}}</p>
+            </div>
+            <div></div>
+          </div>
+          <div *ngIf="barChartResults.length" class="bar-chart">
+            <div *ngFor="let day of last15Dates; index as i" class="day">
+              <div class="bar">
+                <div
+                  [ngStyle]="{'height': (barChartResults[i] * 100 / barChartMaxValue) + '%', 'background-color': chartColor }"
+                  (mouseover)="hoverDay = day" (mouseout)="hoverDay = null"
+                >
+                  <div *ngIf="hoverDay === day" class="detail-box">
+                    <div>{{day.slice(0, -7)}} </div>
+                    <span>{{barChartResults[i]}} </span>
+                  </div>
+                </div>
+              </div>
+              <div class="day-number">
+                <div>{{day.split(' ')[0]}}</div> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resumen_chart">
+          <hr>
+          <div class="flex">
+            <div class="f-50 padd-2">
+              <div (click)="setBarCharts('bookingAvailable')" class="flex f-center pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Lugares no Vendidos <span style="color: #000">{{home_data.bookingAvailable}}</span></span>
+              </div>
+              <mat-progress-bar class="brown-progress"  mode="determinate" [value]="home_data.bookingAvailable / home_data.totalSpots * 100"></mat-progress-bar>
+
+              <div (click)="setBarCharts('assistence')" class="flex f-center pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Asistencias <span style="color: #000">{{home_data.assistence}}</span></span>
+              </div>
+              <mat-progress-bar class="green-progress"  mode="determinate" [value]="(home_data.assistence / (home_data.assistence + home_data.noShow)) * 100"></mat-progress-bar>
+
+              <div (click)="setBarCharts('noShow')" class="flex f-center pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Inasistencias  <span style="color: #000">{{home_data.noShow}}</span></span>
+              </div>
+              <mat-progress-bar class="orange-progress"  mode="determinate" [value]="(home_data.noShow / (home_data.assistence + home_data.noShow)) * 100"></mat-progress-bar>
+
+              <div (click)="setBarCharts('canceled')" class="flex f-center pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Cancelaciónes  <span style="color: #000">{{home_data.canceled}}</span></span>
+              </div>
+              <mat-progress-bar class="red-progress"  mode="determinate" [value]="(home_data.canceled / (home_data.totalBookings)) * 100"></mat-progress-bar>
+
+            </div>
+            <div class="f-50 padd-2">
+              <div (click)="setBarCharts('allUsersCount')" class="flex f-center  pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Usuarios Registrados <span style="color: #000">{{home_data.usersCount}}</span></span>
+              </div>
+              <mat-progress-bar class="blue-progress"  mode="determinate" value="100"></mat-progress-bar>
+
+              <div class="flex f-center">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Ocupación  <span style="color: #000">{{home_data.occupancy | number : '1.2-2' }}% </span></span>
+              </div>
+              <mat-progress-bar class="green-progress"  mode="determinate" [value]="occupancy"></mat-progress-bar>
+
+              <div class="flex f-center">
+                <div (click)="setBarCharts('allUsersCount')" class="flex f-center  pointer">   
+                  <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                  <span class="resumen_line-text">Nuevos Usuarios <span style="color: #000">{{home_data.newUserCount}}</span></span>
+                </div>
+              </div>
+              <mat-progress-bar class="orange-progress"  mode="determinate" [value]="home_data.newUserCount/home_data.usersCount * 100"></mat-progress-bar>
+
+              <div (click)="setBarCharts('selected')" class="flex f-center pointer">
+                <img class="classes_icon" src="/assets/icons/view-claro.png" alt="">
+                <span class="resumen_line-text">Reservaciónes no Concluídas <span style="color: #000">{{home_data.unfinishedBookings}}</span></span>
+              </div>
+              <mat-progress-bar class="gray-progress"  mode="determinate" [value]="(home_data.unfinishedBookings / (home_data.totalBookings)) * 100"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="classes">
+      <div class="flex space-between">
+        <h3 class="gray-title" style="margin: 0">Próximas clases</h3>
+        <span class="black-text classes_text"><img class="classes_icon" src="/assets/icons/calendario.png" alt="">{{todayDate}}</span>
+      </div>
+      <div class="flex-inverse">
+        <div *ngFor="let nextClass of nextClasses" class="box classes_box">
+          <img style="border-radius: 50%;" class="classes_avatar" src="{{nextClass.instructor.src}}" alt="">
+          <p class="classes_info"><b>{{nextClass.type}}</b> - {{nextClass.instructor.name}} {{nextClass.instructor.last_name}}<br> <span class="gray-title">{{nextClass.date}} a las {{nextClass.end}}</span></p>
+          <img class="classes_icon" src="/assets/icons/mas-acciones.png" alt="" [routerLink]="['/admin/edit-reservation', nextClass.$key]">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

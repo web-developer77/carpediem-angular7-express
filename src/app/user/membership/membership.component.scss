@@ -1,0 +1,123 @@
+@import "../../../assets/css/user.scss";
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.membership-container {
+  &__row {
+    margin-bottom: 60px;
+  }
+
+  &__head {
+    .title-line {
+      margin-bottom: 15px;
+      @media screen and (min-width: 768px) {
+        margin-bottom: 35px;
+      }
+    }
+    p {
+      color: $gray-extra-medium;
+      margin-bottom: 30px;
+    }
+  }
+}
+.membership-card {
+  background: $gray-extra-light;
+  border: 1px solid $gray-extra-light;
+  @include shadows(0 2px 7px 0 rgba(189, 189, 189, 0.5));
+  transition: background-color 0.5s ease;
+  position: relative;
+  cursor: pointer;
+  line-height: 1.5;
+  height: 180px;
+  margin-bottom: 50px;
+  @media screen and (min-width: 1024px) {
+    height: 160px;
+    width: 200px;
+  }
+  &__container {
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+  }
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: $gray-dark;
+  }
+  &__price {
+    font-size: 24px;
+    font-weight: 700;
+    color: $gray-dark;
+  }
+  &__expiraton {
+    color: $gray-extra-medium;
+    line-height: 1.5;
+    font-size: 14px;
+    height: 57px;
+    width: 190px;
+  }
+  &__button {
+    background: $white;
+    border: 1px solid $gray-dark;
+    color: $gray-dark;
+    text-transform: uppercase;
+    font-size: 12px;
+    @include shadows(-4px 4px 0px 0px $gray-light);
+    transition: background-color 0.5s ease;
+    padding: 7px 25px;
+    line-height: 1;
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+  }
+  &__discount {
+    transform: rotate(35deg);
+    position: absolute;
+    right: -30px;
+    background: #dedede;
+    padding: 2px 29px;
+    font-size: 10px;
+    font-weight: 700;
+    top: 24px;
+    text-transform: uppercase;
+  }
+  &__discount.red_ribbon {
+    background-color: red;
+    color: white;
+  }
+  &__through {
+    text-decoration: line-through;
+  }
+  &:hover {
+    background: $brown-medium;
+    border-color: $brow-dark;
+
+    & * p {
+      color: $brown-light !important;
+    }
+
+    .membership-card__button {
+      background: $brown-light;
+      border-color: $brown-medium;
+      color: $brown-medium;
+      @include shadows(-4px 4px 0px 0px $brown-light);
+    }
+  }
+}
+
+.membership-legend {
+  font-size: 14px;
+  margin: 50px 0 0;
+}
+
+.higher {
+  height: 192px;
+}
+
+.special {
+  background: #a47b52 !important;
+  border-color: #8b5b2a !important;
+}
+
+.w {
+  color: #fff !important;
+}

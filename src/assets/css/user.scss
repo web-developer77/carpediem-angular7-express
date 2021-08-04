@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900&display=swap');
+
+
+@import './fonts/icon-font.scss';
+
+
+@import './base/reset.scss';
+
+//UTILITIES
+@import './utilities/colors.scss';
+@import './utilities/mixins.scss';
+
+
+//LAYOUT
+@import './layout/layout.scss';
+@import './layout/containers.scss';
+@import './layout/titles.scss';
+
+//COMPONENTES
+@import './components/buttons/buttons.scss';
+@import './components/forms/forms.scss';
+@import './components/modal/modal.scss';
+@import './components/menu/menu.scss';
+

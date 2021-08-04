@@ -1,0 +1,71 @@
+@import '../../assets/css/admin.scss';
+
+
+.register{
+    display: flex;
+    min-height: 100vh;
+  
+    &_logo{
+      width: 13rem;
+      margin-bottom: 2rem;
+    }
+    &_form{
+      padding: 8rem;
+      background-color: #F9F9F9;
+
+      @media screen and (max-width: 900px) {
+        padding: 50px 20px;
+      }
+    }
+  
+    &_title{
+        color: #313232;
+        font-family: 'Avenir-Heavy';
+        font-size: 2.8rem;
+        font-weight: 800;
+        text-decoration: underline;
+        margin: 2rem 0 2rem 0;
+    }
+  
+    &_text{
+      margin: 1rem 0 3rem 0;
+      font-size: 1.4rem;
+    }
+  
+    &_login{
+      display: block;
+      margin: auto;
+      font-family: 'Avenir';
+      text-align: center;
+      font-size: 1.4rem;
+      color: #272727;
+    }
+    &_login-link{
+      font-family: 'Avenir';
+      text-align: center;
+      font-size: 1.4rem;
+      color: #A47B51;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+  
+  .img{
+    background: url('/assets/generales/login.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+  }
+  
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .terms{
+    cursor: pointer;
+  }
+
+  .active{
+    background-color: #A37B52;
+    color: #F9F9F9;
+  }

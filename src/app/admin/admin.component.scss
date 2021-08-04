@@ -1,0 +1,58 @@
+//LAYOUT
+.layout {
+    display: grid;
+  
+  
+    grid-template-areas:
+      "sidebar navbar"
+      "sidebar content"
+      "sidebar footer";
+  
+    @media only screen and (max-width:600px) {
+      grid-template-areas:
+        "navbar"
+        "content"
+        "footer";
+    }
+  
+    grid-template-columns: 20rem 1fr;
+  
+    @media only screen and (max-width:600px) {
+      grid-template-columns: 1fr;
+    }
+  
+    grid-template-rows: 5rem 1fr 5rem;
+  
+    @media only screen and (max-width:600px) {
+      grid-template-rows: 7rem 1fr 7rem;
+    }
+  
+    height: 100vh;
+  
+    &_navbar {
+      grid-area: navbar;
+    }
+  
+    &_sidebar {
+      display:block;
+      @media only screen and (max-width:600px) {
+        display: none;
+        position: absolute;
+        top: 6.8rem;
+        z-index: 1;
+        width: 50%;
+      }
+  
+      grid-area: sidebar;
+    }
+  
+    &_content {
+      grid-area: content;
+    }
+  
+    &_footer {
+      grid-area: footer;
+    }
+  
+  }
+  

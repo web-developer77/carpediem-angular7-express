@@ -1,0 +1,208 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+.intro-container {
+  min-height: 100vh;
+  height: auto !important;
+  padding: 0;
+  position: relative;
+}
+.instructor-single {
+  .header-container {
+    background: $dark;
+  }
+
+  .intro-container {
+
+    @media screen and (max-width: 767px) {
+      height: 100%;
+    }
+
+    .container-fluid {
+      &>.row {
+        @media screen and (min-width: 768px) {
+          height: 100vh;
+        }
+      }
+    }
+  }
+}
+
+.name{
+  color: $white;
+  font-family: Avenir;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.description {
+  width: 80%;
+}
+
+.instructor-schedule {
+  &____info {
+    position: relative;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+
+    img {
+      position: absolute;
+      height: 100vh;
+      left: -100%;
+
+      @media screen and (min-width: 768px) {
+        left: -15px;
+      }
+    }
+
+    &::after {
+      content: '';
+      background: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      padding: 0 15px;
+    }
+  }
+
+  &__description {
+    position: relative;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    padding-top: 140px;
+
+    @media screen and (min-width: 768px) {
+      padding: 140px 15px 20px 100px;
+      width: 80%;
+    }
+
+    p {
+      color: #d6d6d5;
+      line-height: 1.5;
+
+      i {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+
+    .instructor-legend {
+      margin-top: 30px;
+    }
+  }
+
+  &__container {
+    overflow-y: scroll;
+    background: #b79675;
+    height: 100vh;
+
+    .schedule-list {
+      @media screen and (min-width: 768px) {
+        padding-top: 82px;
+        max-height: 100vh;
+      }
+
+      &__title {
+        background: $brown-light;
+        color: #191919;
+        width: 100%;
+        font-family: Avenir !important;
+        font-weight: 800;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.25px;
+        padding:  10px 15px;
+      }
+
+      &__date {
+        line-height: 1.5;
+        padding: 15px;
+
+        ul {
+          color: white;
+
+          li {
+            display: inline;
+            margin-right: 20px;
+            font-family: Avenir !important;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+}
+
+.instructor-schedule__info {
+  @media screen and (max-width: 768px) {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.instructors-container__info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 90%;
+}
+
+.instructor{
+  
+  &-text{
+    color: #313232;
+    font-family: Avenir;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+    padding: 10px 0;
+  }
+
+  &-text2{
+    color: #636060;
+    font-family: Avenir;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 22px;
+  }
+}
+
+.img-both{
+  position: relative;
+  padding: 22px;
+  img{
+      display: none;
+      @media screen and (min-width: 992px){
+          display: block;
+      }
+  }
+  &__big{
+      @media screen and (max-width: 1200px){
+          width: 300px;
+      }
+  }
+  &__small{
+      position:absolute;
+      top: 277px;
+      left: 269px;
+      @media screen and (max-width: 1200px){
+          width: 250px;
+      }
+  }   
+}
+a{
+  color: $white;
+}
+
+#background{
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}

@@ -1,0 +1,224 @@
+@import '../../../assets/css/admin.scss';
+
+.navbar {
+  background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media only screen and (max-width:600px) {
+    display: none;
+  }
+
+  &_left {
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+    font-size: 1.6rem;
+    color: #000;
+  }
+
+  &_url {
+    font-family: 'Roboto';
+  }
+
+  &_icon {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1.5rem;
+  }
+
+  &_alert {
+    position: relative;
+    cursor: pointer;
+    padding: 0px 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+
+  &_right {
+    display: flex;
+    color: #1B1E24;
+    font-family: Roboto;
+    font-size: 1.4rem;
+    height: 100%;
+    align-items: center;
+    margin-right: 3rem;
+  }
+
+  &_user {
+    margin-left: 2rem;
+
+    &_icon {
+      width: 1.3rem;
+      margin: 0 2rem;
+    }
+  }
+
+  &_notifications{
+    position: absolute;
+    top: 55px;
+    right: 115px;
+    background-color: #FFFFFF;
+    border: 1px solid #E8EBF2;
+    border-radius: 0 0 4px 4px;
+    box-shadow: -10px 5px -1px 0 rgba(128, 152, 213, 0.07), inset 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    width: 47rem;
+    z-index: 99;
+    display: none;
+  }
+
+  &_notifications-title{
+      color: #4B5D6F;
+      font-family: 'Lato';
+      font-size: 1.8rem;
+      font-weight: 400;
+  }
+
+  &_notifications-icon{
+    width: 1.6rem;
+    margin: 2rem;
+  }
+
+  &_notifications-icon2{
+    width: 2rem;
+    margin: 2rem;
+  }
+
+  &_notifications-text{
+    color: #4B5D6F;
+    font-family: Lato;
+    font-size: 1.3rem;
+    font-weight: 400;
+    padding-right: 2px;
+  }
+
+  &_notifications-read{
+    color: #98A9BC;
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: 400;
+    padding: 2rem;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  &_notifications-number{
+    top: 10px;
+    right: 3px;
+    position: absolute;
+    color: #fff;
+    background-color: #EB3232;
+    border-radius: 100%;
+    padding: 2px 4px;
+    font-size: 10px;
+  }
+
+  
+
+}
+
+.navbar-mob {
+  display: none;
+  background-color: #182C4B;
+  height: 7rem;
+
+  @media only screen and (max-width:600px) {
+    display: block;
+  }
+
+  &_hamburger{
+    margin-left: 3rem;
+  }
+
+  &_center{
+    margin: auto;
+  }
+
+  &_url{
+    position: absolute;
+    top: 3.5rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+
+  // HAMBURGER
+  &__checkbox {
+    display: none;
+  }
+  &__checkbox:checked~&__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked~&__nav {
+    opacity: 1;
+    width: 100%;
+  }
+
+
+  //ICON
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: #fff;
+      display: inline-block;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      transition: all .2s;
+    }
+
+    &::before {
+      top: -.8rem;
+    }
+
+    &::after {
+      top: .8rem;
+    }
+  }
+
+  &__button:hover &__icon::before {
+    top: -1rem;
+  }
+
+  &__button:hover &__icon::after {
+    top: 1rem;
+  }
+
+  &__checkbox:checked+&__button &__icon {
+    background-color: transparent;
+  }
+
+  &__checkbox:checked+&__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+  }
+
+  &__checkbox:checked+&__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+
+
+
+}

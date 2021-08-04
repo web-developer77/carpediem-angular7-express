@@ -1,0 +1,194 @@
+<div class="content">
+  <div class="add box">
+      <div *ngIf="loading" class="lds-ring abs-center">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+    <form #f="ngForm" (ngSubmit)="createUser(f)">
+      <div class="flex">
+        <div class="add_form right-border fm-100">
+          <h3 class="black-title">Agrega nuevo usuario</h3>
+          <div class="flex">
+            <div class="user-box">
+              <div class="flex">
+                <div class="f-20 flex">
+                  <img [src]= "fileUrl ? fileUrl : '/assets/icons/user.jpg'" style="margin:auto; height: 60px;" alt="">
+                  <input class="input_file" type="file" (change)="addFile($event.target.files)" />
+                </div>
+                <div class="f-40 ">
+                  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" name="name" [(ngModel)]="user.name" matInput required>
+                  </mat-form-field>
+                </div>
+                <div class="f-40 ">
+                  <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" name="last_name" [(ngModel)]="user.last_name" matInput required>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="flex">
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Email</mat-label>
+                <input name="email" type="email" [(ngModel)]="user.email" matInput required>
+              </mat-form-field>
+            </div>
+
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Teléfono</mat-label>
+                <input name="phone" type="phone" [(ngModel)]="user.phone" matInput required>
+              </mat-form-field>
+            </div>
+
+            
+
+          </div>
+
+          <div class="flex">
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Talla</mat-label>
+                <mat-select name="shoe_type" [(ngModel)]="user.shoe_type" required>
+                  <mat-option value="Europeo">Europeo</mat-option>
+                  <mat-option value="Americano">Americano</mat-option>
+                  <mat-option value="Mexicano">Mexicano</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Medida</mat-label>
+                <mat-select [disabled]="!user.shoe_type" name="shoe_size" [(ngModel)]="user.shoe_size" required>
+                  <mat-option *ngFor="let s of sizes[user.shoe_type === 'Europeo' ? 0 : (user.shoe_type === 'Americano' ? 1 : 2)]" value="{{s}}">{{s}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Fecha de cumpleaños</mat-label>
+                <input matInput name="born" [(ngModel)]="user.born" [matDatepicker]="picker"
+                  (click)="picker.open()" autocomplete="off" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div class="row">
+              <mat-checkbox name="reservations" [(ngModel)]="add_card" class="mylabel">Registrar tarjeta de crédito</mat-checkbox>
+            <div class="create-card" *ngIf="add_card">
+              <br />
+              <h1>Datos de la tarjeta:</h1>
+              <br />
+              <div class="create-card__menu">
+                <ul>
+                  <li><button [ngClass]="{'active-card': card.card_number?.charAt(0) == 4 }" class="create-card__type visa">Visa</button></li>
+                  <li><button [ngClass]="{'active-card': card.card_number?.charAt(0) == 5 }" class="create-card__type master">Master</button></li>
+                  <li><button [ngClass]="{'active-card': card.card_number?.charAt(0) == 3 }" class="create-card__type american">american</button></li>
+                </ul>
+              </div>
+              <div class="create-card__info">
+                <div class="form-create">
+                  <div class="row form-create__section">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+  
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                        <mat-label>Nombre completo de la tarjeta </mat-label>
+                        <input type="text" placeholder="nombre" name="holder_name" matInput
+                          [(ngModel)]="card.holder_name" required>
+                      </mat-form-field>
+  
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-4 mt-md-0">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                        <mat-label>Número de la tarjeta</mat-label>
+                        <input placeholder="número" name="card_number" [(ngModel)]="card.card_number"
+                          [cleave]="{creditCard: true}" required matInput>
+                      </mat-form-field>
+  
+                    </div>
+                  </div>
+  
+                  <div class="row form-create__section">
+                    <div class="col-12">
+                      <div class="row" style="display: flex">
+                        <div class="col-6">
+                          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                            <input type="text" maxlength="2" matInput placeholder="MM" name="expiration_month"
+                              [(ngModel)]="card.expiration_month" required>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                            <input type="text" maxlength="2" matInput placeholder="AA" name="expiration_year"
+                              [(ngModel)]="card.expiration_year" required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+  
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                        <mat-label>Código de seguridad</mat-label>
+                        <input type="string" matInput maxlength="4" placeholder="3 o 4 digitos" name="cvv2"
+                          [(ngModel)]="card.cvv2" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+          <div class="flex flex-end mar-t-2">
+            <button type="button" mat-button mat-raised-button class="btn_white" color="secondary">Cancelar</button>
+            <button type="submit" mat-button mat-raised-button class="btn_gold " color="accent">Guardar</button>
+          </div>
+
+        </div>
+
+        <div class="add_side fm-100">
+
+          <div class="settings">
+            <div class="settings_box">
+              <h5 class="settings_title">Información adicional</h5>
+              <mat-checkbox name="reservations" [(ngModel)]="emergency_contact" class="mylabel">Contacto de emergencia</mat-checkbox>
+              <mat-form-field style="margin-top: 1rem;"  *ngIf="emergency_contact" appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Nombre del contacto de emergencia</mat-label>
+                <input type="text" name="emergency_contact" [(ngModel)]="user.emergency_contact" matInput placeholder="Escribe el nombre y apellido">
+              </mat-form-field>
+
+              <mat-form-field *ngIf="emergency_contact" appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Teléfono de contacto de emergencia</mat-label>
+                  <input type="text" name="emergency_phone" [(ngModel)]="user.emergency_phone" matInput placeholder="Escribe el télefono">
+                </mat-form-field>
+
+              <mat-checkbox name="injury" [(ngModel)]="injury" class="mylabel">Alguna lesión o dolor que deberíamos saber</mat-checkbox>
+              <div >
+                <p *ngIf="injury" class="settings_text">Esta información nos ayuda a que te cuidemos de la mejor forma y tengas el mejor rendimiento</p>
+                <mat-form-field *ngIf="injury" appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Escribe estado de salud</mat-label>
+                  <input type="text" name="health" [(ngModel)]="user.health" matInput placeholder="Escribe estado de salud">
+                </mat-form-field>
+                <mat-checkbox name="mails" [(ngModel)]="mails" class="mylabel">  No envíe un correo electrónico a este usuario</mat-checkbox>
+                <p *ngIf="mails"  class="settings_text">El usuario seguirá recibiendo los recibos por correo electrónico si realiza una compra de pase o una reserva de clase</p>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

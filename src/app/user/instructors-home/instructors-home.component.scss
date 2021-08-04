@@ -1,0 +1,125 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.instructors-container{
+    &__photo{
+        position: relative;
+        img{
+            width: 80%;
+        }
+    }
+    &__photo2{
+        padding-left: 50px;
+        img{
+            display: none;
+            @media screen and (min-width: 992px){
+                display: block;
+            }
+        }
+    }
+    &__description{
+        padding-right: 60px;
+        .title-line{
+            margin-bottom: 15px;
+            &__secondary{
+                text-transform: uppercase;
+                font-size: 18px;
+                font-weight: 700;
+                margin-top: 2.8rem
+            }
+        } 
+        p{
+            color:$gray-medium;
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+    }
+    &__info{
+        @media screen and (min-width: 992px){
+            margin-top: 204px;
+        }
+        .instructor-text {
+            font-size: 22px;
+            margin-bottom: 20px;
+            line-height: 1.29;
+            text-align: justify;
+            font-weight: 600;
+        }
+        .instructor-text2 {
+            margin-bottom: 27px;
+            color: $gray-medium;
+            font-weight: 300;
+        }
+        .instructor-text3{
+            font-size: 18px;
+            margin-top: 10px;
+            line-height: 2.5;
+            text-align: justify;
+            color: $gray-medium;
+        }
+
+    }
+}
+
+
+.instructor-more{
+    &__container{
+        .title-line{
+            margin-bottom: 20px;
+        }
+        p{
+            padding-left: 40px;
+            line-height: 1.5;
+        }
+    }
+    
+    .space{
+        margin-bottom: 30px;
+    }
+    &__galery{
+        padding: 15px;
+        &.active{
+            border: solid 2px #e0d8d0;
+        }
+    }
+    &__social{
+        padding-left: 40px;
+        margin-top: 15px;
+        margin-bottom: 72px;
+        a{
+            img{
+                vertical-align: middle;
+            }
+            color: $white;
+        }
+    }
+}
+
+.img-both{
+    position: relative;
+    padding: 22px;
+    img{
+        display: none;
+        @media screen and (min-width: 992px){
+            display: block;
+        }
+    }
+    &__big{
+        @media screen and (max-width: 1200px){
+            width: 300px;
+        }
+    }
+    &__small{
+        position:absolute;
+        top: 277px;
+        left: 269px;
+        @media screen and (max-width: 1200px){
+            width: 250px;
+        }
+    }   
+}
+
+.fonty{
+    font-family: 'Avenir' !important;
+}
+

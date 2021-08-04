@@ -1,0 +1,87 @@
+<!-- SHOES -->
+<div class="lds-ring abs-center" *ngIf="loading"><div></div><div></div><div></div><div></div></div>
+<section class="pages-container flex f-center" style="margin-top: 6rem">
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-12 col-lg-10">
+        <div class="select-tennis">
+          <div class="pages-container__head">
+            <i class="icon-Tennis_Off"></i>
+            <div class="title-line">
+              <h1 class="title-line__secondary">Escoge tu talla de calzado</h1>
+            </div>
+            <p>Para darte un mejor servicio, escoge tu talla de calzado.</p>
+          </div>
+          <form>
+            <div>
+              <div class="select-tennis__step1">
+                <div class="title-line">
+                  <h2 class="title-line__third">Paso 1</h2>
+                </div>
+                <div class="select_tennis_option">
+                    
+                  <button class="btn btn-light btn-circle noborder" [ngClass]="{'active': sex == 'Hombre'}" (click)="sex = 'Hombre'">
+                    <i style="font-size: 35px;" class="icon-hombre"></i>
+                    </button>
+                
+                  <button class="btn btn-light btn-circle noborder" [ngClass]="{'active': sex == 'Mujer'}" (click)="sex = 'Mujer'">
+                    <i style="font-size: 32px;" class="icon-mujer"></i>
+                  </button>
+                   
+
+                </div>
+              </div>
+
+              <div class="select-tennis__step2">
+                <div class="title-line">
+                  <h2 class="title-line__third">Paso 2</h2>
+                </div>
+                <div class="select_tennis_option">
+                  <div class="row">
+                    <div class="col">
+                      <button class="btn btn-block btn-light"  [ngClass]="{'active': shoe_type == 'Europeo'}" (click)="shoe_type = 'Europeo'; shoe_index = 0">
+                        Europeo
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-block btn-light"  [ngClass]="{'active': shoe_type == 'Americano'}" (click)="shoe_type = 'Americano'; shoe_index = 1">
+                        Americano
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-block btn-light"  [ngClass]="{'active': shoe_type == 'Mexicano'}" (click)="shoe_type = 'Mexicano' ; shoe_index = 2">
+                        Mexicano
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="select-tennis__step3">
+                <div class="title-line">
+                  <h2 class="title-line__third">Paso 3</h2>
+                </div>
+                <div class="select_tennis_option">
+                  <div class="row">
+                    <div class="col" *ngFor="let size of sizes[shoe_index]" >
+                      <button class="btn btn-block btn-light mb-4 mb-lg-0" [ngClass]="{'active': shoe_size == size}" (click)="shoe_size = size">
+                        {{size}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mar-t-2">
+              <div class="col-6">
+                <button  (click)="selectShoe()" class="btn btn-block btn-light" [disabled]="loading" [ngClass]="{'active': loading}">Enviar</button>
+              </div>
+            </div>
+        </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+

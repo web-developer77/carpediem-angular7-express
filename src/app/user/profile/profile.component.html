@@ -1,0 +1,244 @@
+    <div *ngIf="loading" class="lds-ring abs-center">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <section class="account-container">
+      <div class="container">
+        <div class="row ">
+          <div class="col">
+            <div class="title-line">
+              <h1 class="title-line__secondary" style="margin-top: 5rem;">Hola, {{user?.name}} {{user?.last_name}}</h1>
+              <div class="title-user-credits">
+                <div class="title-credits-header">
+                  <p>Créditos disponibles:</p>
+                </div>
+                <div class="title-credits-content">
+                  <p><strong>Studio:</strong> {{user?.studio_credits}} créditos</p>
+                  <p><strong>Outdoors:</strong> {{user?.credits}} créditos</p>
+                  <p><strong>Date:</strong> {{getCreditsDate()}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="account-container__payment">
+              <div class="card">
+                <div class="card-header">
+                  <mat-tab-group>
+                    <mat-tab label="CLASES">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                            <div class="row mobile-buttons">
+                                <button class="btn btn-brown btn-block col-4"  (click)="filterIncoming()" [ngClass]="{'active': filter == 'incoming'}">Próximas clases</button>
+                                <button class="btn btn-brown btn-block col-4 offset-md-1" style="margin-top: 0" (click)="filterPrevious()" [ngClass]="{'active': filter == 'previous'}">Clases Pasadas</button>
+                            </div>
+
+                            <div class="select-class-container">
+                              <div class="select-class-container__option">
+                                <table class="table"> 
+                                  <tr *ngFor="let booking of bookings_filtered">
+                                    <td class="flex"> <img width="40" height="40" [src]="booking.instructor.src" alt="">
+                                      {{booking.instructor.name}}
+                                    </td>
+                                    <td>{{booking.date}}</td>
+                                    <td>{{booking.time}} </td>
+                                    <td>Lugar{{booking.spot}}</td>
+                                    <td> <span *ngIf="filter == 'incoming'" style="cursor: pointer" (click)="cancelBooking(booking)">
+                                        <img width="15" src="/assets/generales/basura.png" alt="">
+                                      </span>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+                            <div class="account-container__available">
+                              <div class="account-container__available__info" *ngIf="!user?.subscription">
+                                <span>{{expired ? '0' :(user?.credits < 10) ? '0' + user?.credits : user?.credits }}</span>
+                                <p><strong>Clases disponibles</strong></p>
+                                <p *ngIf="user?.plan_expiration" st><strong>Vigencia:
+                                    {{user?.plan_expiration}}</strong></p>
+                                <div class="form__btn">
+                                  <button class="btn btn-brown btn-block" [routerLink]="[ '/carpe/buy']">COMPRAR
+                                    CLASES</button>
+                                </div>
+                              </div>
+                              <div class="account-container__available__info" *ngIf="user?.subscription">
+                                <span
+                                  *ngIf="user.plan_id == 6">{{(user?.credits < 10) ? '0' + user?.credits : user?.credits }}</span>
+                                <p style="text-align: left !important;"><strong>Plan:</strong></p>
+                                <p style="text-align: left !important;"><strong>{{subscriptionPlanName(user.plan_id)}}</strong></p>
+                                <p style="text-align: left !important;"><strong>{{ user.plan_id != 9 ? 'Renovación' : 'Vigencia'}}: {{getPlanDate()}}</strong></p>
+                                <div class="form__btn">
+                                  <button class="btn btn-brown btn-block" (click)="cancelRenovation()">Cancelar
+                                    renovación</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="HISTORIAL DE COMPRAS">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                            <div>
+                              <h2 class="card-title">Forma de pago</h2>
+                            </div>
+
+                            <div class="select-class-container">
+                              <div class="select-class-container__option">
+                                <table class="table">
+                                  <tr>
+                                    <th>Paquete</th>
+                                    <th>Fecha</th>
+                                    <th>Trajeta</th>
+                                    <th>Cantidad</th>
+                                    <th>Expiración</th>
+                                  </tr>
+                                  <tr *ngFor="let purchase of purchases">
+                                    <td>{{purchase.package}}</td>
+                                    <td>{{purchase.date}}</td>
+                                    <td>{{purchase.card}} </td>
+                                    <td>{{purchase.amount | currency}}</td>
+                                    <td> {{purchase.expiration}}</td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+                            <div class="account-container__available">
+                              <div class="account-container__available__info" *ngIf="!user?.subscription">
+                                <span>{{expired ? '0' :(user?.credits < 10) ? '0' + user?.credits : user?.credits }}</span>
+                                <p><strong>Clases disponibles</strong></p>
+                                <p *ngIf="user?.plan_expiration" st><strong>Vigencia:
+                                    {{user?.plan_expiration}}</strong></p>
+                                <div class="form__btn">
+                                  <button class="btn btn-brown btn-block" [routerLink]="[ '/carpe/buy']">COMPRAR
+                                    CLASES</button>
+                                </div>
+                              </div>
+                              <div class="account-container__available__info" *ngIf="user?.subscription">
+                                <span
+                                  *ngIf="user.plan_id == 6">{{(user?.credits < 10) ? '0' + user?.credits : user?.credits }}</span>
+                                <p style="text-align: left !important;"><strong>Plan:</strong></p>
+                                <p style="text-align: left !important;"><strong>{{subscriptionPlanName(user.plan_id)}}</strong></p>
+                                <p style="text-align: left !important;"><strong>{{ user.plan_id != 9 ? 'Renovación' : 'Vigencia'}}: {{getPlanDate()}}</strong></p>
+                                <div class="form__btn">
+                                  <button class="btn btn-brown btn-block" (click)="cancelRenovation()">Cancelar
+                                    renovación</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </mat-tab>
+                <mat-tab label="FORMA DE PAGO">
+                  <div class="card-body">
+                    <button type="submit" class="btn btn-light" style="float: right; padding: 10px;" (click)="addCard();">Agregar tarjeta</button>
+
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                        <h2 class="card-title">Forma de pago</h2>
+
+                        <div class="payment-container" *ngFor="let card of credit_cards; index as i">
+                          <div class="payment-container__card">
+                            <div class="row">
+                              <div class="col-3">
+                                <div class="type-card {{card.brand}}">
+                                  {{card.brand}}
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <p> {{card.card_number}} </p>
+                              </div>
+                              <div class="col-1">
+                                <span (click)="deleteCard(card)">
+                                  <img width="15" src="/assets/generales/basura.png" alt="">
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="TUS DATOS">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                        <div>
+                          <h2 class="card-title" style="padding-left: 10px;">Tus datos</h2>
+                        </div>
+                        <form class="form flex" #f="ngForm" (ngSubmit)="updateUser(f)" *ngIf="user">
+                          <mat-form-field class="f-50 fm-100" appearance="outline" [hideRequiredMarker]="true">
+                            <input type="text" matInput name="name" [(ngModel)]="user.name" required
+                              placeholder="Nombre">
+                          </mat-form-field>
+
+                          <mat-form-field class="f-50 fm-100" appearance="outline" [hideRequiredMarker]="true">
+                            <input type="text" matInput name="last_name" [(ngModel)]="user.last_name" required
+                              placeholder="Apellido">
+                          </mat-form-field>
+
+                          <mat-form-field class="f-50 fm-100" appearance="outline" [hideRequiredMarker]="true">
+                            <input type="text" matInput id="born" name="born" [(ngModel)]="user.born" required
+                              placeholder="Fecha de Nacimiento" autocomplete="off" [matDatepicker]="picker"
+                              (click)="picker.open()">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+
+                          <mat-form-field class="f-50 fm-100" appearance="outline" [hideRequiredMarker]="true">
+                            <input type="tel" matInput name="emergency_phone" [(ngModel)]="user.emergency_phone"
+                              placeholder="Teléfono de contacto">
+                          </mat-form-field>
+
+                          <mat-form-field *ngIf="change_password" class="f-100" appearance="outline"
+                            [hideRequiredMarker]="true">
+                            <input type="password" matInput name="password" [(ngModel)]="password"
+                              placeholder="Contraseña Actual" required>
+                          </mat-form-field>
+
+                          <mat-form-field *ngIf="change_password" class="f-50 fm-100" appearance="outline"
+                            [hideRequiredMarker]="true">
+                            <input type="password" matInput name="new_password" [(ngModel)]="new_password"
+                              placeholder="Nueva contraseña" required>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="change_password" class="f-50 fm-100" appearance="outline"
+                            [hideRequiredMarker]="true">
+                            <input type="password" matInput name="password_confirmation"
+                              [(ngModel)]="password_confirmation" placeholder="Confirmar contraseña" required>
+                          </mat-form-field>
+
+                          <div class="w-100" style="padding-left: 10px;">
+                            <mat-checkbox name="change_password" [(ngModel)]="change_password" class="mylabel">
+                              Cambiar Contraseña</mat-checkbox>
+                          </div>
+
+
+                          <div class="form__btn width-100">
+                            <button type="submit" class="btn btn-light btn-block">GUARDAR DATOS</button>
+                          </div>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+
+            <button class="btn btn-light btn-block mar-t-2" (click)="logOut()">Cerrar Sesión</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>

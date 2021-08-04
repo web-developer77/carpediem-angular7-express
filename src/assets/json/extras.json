@@ -1,0 +1,15 @@
+[ 
+	{
+        "name": "Agua 900ml",
+        "icon":"icon-Healthy_Bar_off",
+        "ammount": 0,
+        "price": 30
+        },
+        {
+        "name": "Shot de Jengibre Velucca ",
+        "icon":"icon-Healthy_Bar_off",
+        "ammount": 0,
+        "price": 40
+        }
+
+]

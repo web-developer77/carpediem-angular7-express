@@ -1,0 +1,95 @@
+<section
+  class="black-container intro-container"
+  style="
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url('/assets/generales/header-home.jpg') !important;
+  "
+>
+  <div class="container flex f-center">
+    <div class="intro-container__head">
+      <div class="title-line">
+        <h1 class="title-line__main">TÚ. AQUÍ. AHORA.</h1>
+      </div>
+
+      <div class="row">
+        <div class="col book-button">
+          <button
+            class="btn btn-block btn-light"
+            [routerLink]="['/carpe/book']"
+          >
+            <span class="texty"> Reserva tu clase</span>
+          </button>
+        </div>
+        <div class="col abs-center-mobile">
+          <button
+            class="btn-blacky btn-black-friday"
+            (click)="scroll('target')"
+          >
+            <p>Ver paquetes</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="intro-container__footer">
+    <div class="container">
+      <div>
+        <p><strong>Outdoors Pop-up:</strong></p>
+        <p style="width: 40%">
+          Everest Wellness Center<br />
+          Monte Everest 635, Lomas de Chapultepec, Miguel Hidalgo, 11000, CDMX
+        </p>
+        <p><strong>Studio:</strong></p>
+      </div>
+      <div class="row">
+        <div class="d-none d-md-block col-md-4">
+          <p>
+            Av. Paseo de las Palmas 781, Piso C2 Lomas de Chapultepec, 11000
+            Ciudad de México, CDMX
+          </p>
+        </div>
+        <div class="d-none d-md-block col-6 text-left col-md-4">
+          <p class="modal-links" (click)="openNotice()">Aviso de privacidad</p>
+          <p class="modal-links" (click)="openTerms()">
+            Términos y condiciones
+          </p>
+        </div>
+
+        <div class="col-md-4">
+          <a style="float: right" href="mailto:hola@carpe-diem.mx">
+            <img
+              style="margin-right: 1rem"
+              width="40"
+              src="/assets/generales/mail.svg"
+              alt=""
+            />
+          </a>
+          <a style="float: right; margin-right: 10px" href="tel:5517108252">
+            <img width="40" src="/assets/generales/telefono.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 d-none d-md-block intro-social-media">
+    <p>
+      <a class="btn-txt-white" href="https://www.instagram.com/carpediem.mx/ ">
+        INSTAGRAM
+      </a>
+      //
+      <a class="btn-txt-white" href=""> SPOTIFY </a>
+    </p>
+  </div>
+  <div class="d-none d-md-block book-class">
+    <p>
+      <a class="btn-txt-white" [routerLink]="['/carpe/book']">
+        RESERVA TU CLASE
+      </a>
+    </p>
+  </div>
+</section>
+
+<app-membership></app-membership>
+<app-concept></app-concept>
+<app-instructors-home></app-instructors-home>

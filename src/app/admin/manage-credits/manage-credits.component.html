@@ -1,0 +1,293 @@
+<h2 mat-dialog-title>Administrar créditos</h2>
+<mat-dialog-content
+  class="mat-typography"
+  style="position: relative; height: 90%; max-height: none;"
+>
+  <div class="manage-credits-container">
+    <h2 class="user_name" style="margin: 40px 0px;">
+      {{ user.name }} {{ user.last_name }}
+    </h2>
+    <p style="font-weight: bold; margin: 0;">Studio:</p>
+    <div class="outdoors-container" style="margin-bottom: 40px;">
+      <div *ngIf="!user?.subscription || user?.plan_id === 9 || user?.plan_id === 6" class="credits-container">
+        <div style="text-align: center;">
+          <p style="font-size: 24px; font-weight: bold; margin: 0;">
+            {{ studio_credits < 10 ? "0" + studio_credits : studio_credits }}
+          </p>
+          <p class="user_name" style="margin: 0;">creditos</p>
+        </div>
+        <div class="operator-btn-group">
+          <button
+            mat-button
+            mat-raised-button
+            class="btn_whiteNgold"
+            color="secondary"
+            (click)="
+              studio_credits > 0
+                ? (studio_credits = studio_credits - 1)
+                : 'none'
+            "
+          >
+            -
+          </button>
+          <button
+            mat-button
+            mat-raised-button
+            class="btn_whiteNgold"
+            color="secondary"
+            (click)="studio_credits = studio_credits + 1"
+          >
+            +
+          </button>
+        </div>
+        <button
+          mat-button
+          mat-raised-button
+          class="btn-gold"
+          color="accent"
+          color="primary"
+          (click)="saveStudio()"
+        >
+          GUARDAR
+        </button>
+      </div>
+      <div *ngIf="user?.subscription" class="credits-container">
+        <div
+          *ngIf="user.plan == 'Membresia 20 clases en un mes'"
+          class="inner-credits-container"
+        >
+          <div style="text-align: center;">
+            <p style="font-size: 24px; font-weight: bold; margin: 0;">
+              {{ studio_credits < 10 ? "0" + studio_credits : studio_credits }}
+            </p>
+            <p class="user_name" style="margin: 0;">creditos</p>
+          </div>
+          <div class="operator-btn-group">
+            <button
+              mat-button
+              mat-raised-button
+              class="btn_whiteNgold"
+              color="secondary"
+              (click)="
+                studio_credits > 0
+                  ? (studio_credits = studio_credits - 1)
+                  : 'none'
+              "
+            >
+              -
+            </button>
+            <button
+              mat-button
+              mat-raised-button
+              class="btn_whiteNgold"
+              color="secondary"
+              (click)="studio_credits = studio_credits + 1"
+            >
+              +
+            </button>
+          </div>
+          <button
+            mat-button
+            mat-raised-button
+            class="btn-gold"
+            color="accent"
+            color="primary"
+            (click)="saveStudio()"
+          >
+            GUARDAR
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngIf="
+          !user.subscription || user.plan == 'Membresia 20 clases en un mes' || user?.plan_id === 9 || user?.plan_id === 6
+        "
+        class="expired-credits-container"
+      >
+        <div class="f-50">
+          <p *ngIf="studio_plan_expiration" style="margin: 0;">
+            <strong>Vigencia: {{ studio_plan_expiration }}</strong>
+          </p>
+          <mat-form-field
+            appearance="outline"
+            [hideRequiredMarker]="true"
+            style="padding: 0; width: 90%;"
+          >
+            <mat-label>Cambiar vigencia</mat-label>
+            <input
+              matInput
+              name="expiration"
+              (dateChange)="changeExStudio($event)"
+              [matDatepicker]="picker2"
+              (click)="picker2.open()"
+              autocomplete="off"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="f-50">
+          <button
+            mat-button
+            mat-raised-button
+            class="btn-gold"
+            color="accent"
+            color="primary"
+            (click)="saveExpirationStudio()"
+          >
+            GUARDAR
+          </button>
+        </div>
+      </div>
+    </div>
+    <p style="font-weight: bold; margin: 0;">Outdoors:</p>
+    <div class="outdoors-container" style="margin-bottom: 50px;">
+      <div *ngIf="!user?.subscription || user?.plan_id === 9 || user?.plan_id === 6" class="credits-container">
+        <div style="text-align: center;">
+          <p style="font-size: 24px; font-weight: bold; margin: 0;">
+            {{ credits < 10 ? "0" + credits : credits }}
+          </p>
+          <p class="user_name" style="margin: 0;">creditos</p>
+        </div>
+        <div class="operator-btn-group">
+          <button
+            mat-button
+            mat-raised-button
+            class="btn_whiteNgold"
+            color="secondary"
+            (click)="credits > 0 ? (credits = credits - 1) : 'none'"
+          >
+            -
+          </button>
+          <button
+            mat-button
+            mat-raised-button
+            class="btn_whiteNgold"
+            color="secondary"
+            (click)="credits = credits + 1"
+          >
+            +
+          </button>
+        </div>
+        <button
+          mat-button
+          mat-raised-button
+          class="btn-gold"
+          color="accent"
+          color="primary"
+          (click)="saveCredits()"
+        >
+          GUARDAR
+        </button>
+      </div>
+      <div *ngIf="user?.subscription" class="credits-container">
+        <div
+          *ngIf="user.plan == 'Membresia 20 clases en un mes'"
+          class="inner-credits-container"
+        >
+          <div style="text-align: center;">
+            <p style="font-size: 24px; font-weight: bold; margin: 0;">
+              {{ credits < 10 ? "0" + credits : credits }}
+            </p>
+            <p class="user_name" style="margin: 0;">creditos</p>
+          </div>
+          <div class="operator-btn-group">
+            <button
+              mat-button
+              mat-raised-button
+              class="btn_whiteNgold"
+              color="secondary"
+              (click)="credits > 0 ? (credits = credits - 1) : 'none'"
+            >
+              -
+            </button>
+            <button
+              mat-button
+              mat-raised-button
+              class="btn_whiteNgold"
+              color="secondary"
+              (click)="credits = credits + 1"
+            >
+              +
+            </button>
+          </div>
+          <button
+            mat-button
+            mat-raised-button
+            class="btn-gold"
+            color="accent"
+            color="primary"
+            (click)="saveCredits()"
+          >
+            GUARDAR
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngIf="
+          !user.subscription || user.plan == 'Membresia 20 clases en un mes' || user?.plan_id === 9 || user?.plan_id === 6
+        "
+        class="expired-credits-container"
+      >
+        <div class="f-50">
+          <p *ngIf="plan_expiration" style="margin: 0;">
+            <strong>Vigencia: {{ plan_expiration }}</strong>
+          </p>
+          <mat-form-field
+            appearance="outline"
+            [hideRequiredMarker]="true"
+            style="padding: 0; width: 90%;"
+          >
+            <mat-label>Cambiar vigencia</mat-label>
+            <input
+              matInput
+              name="expiration"
+              (dateChange)="changeEx($event)"
+              [matDatepicker]="picker2"
+              (click)="picker2.open()"
+              autocomplete="off"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="f-50">
+          <button
+            mat-button
+            mat-raised-button
+            class="btn-gold"
+            color="accent"
+            color="primary"
+            (click)="saveExpiration()"
+          >
+            GUARDAR
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="width: 60%; margin: auto;">
+      Ten en cuenta que modificar estos parámetros de forma manual facilita la
+      operación pero puede provocar inconsistencias en los registros de venta,
+      clases, asistencias.
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    class="btn btn-block btn-light"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    CERRAR
+  </button>
+</mat-dialog-actions>

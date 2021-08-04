@@ -1,0 +1,50 @@
+
+.menu-step{
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 0;
+    color: $white;
+    &__number{
+        border-radius: 50px;
+        display: block;
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 20px;
+        color: $white;
+        font-weight: 600;
+        border: 1px solid $white;
+    }
+    .active{
+        .menu-step__number{
+            background: $white;
+            color: $dark;
+        }
+        span{
+            font-weight: 600;
+
+        }
+    }
+}
+
+.menu-filters{
+    .row{
+        border-top: 1px solid rgb(189, 189, 189);
+        border-bottom: 1px solid rgb(189, 189, 189);
+        div{
+            border-right: 1px solid rgb(189, 189, 189);
+            &:last-child{
+                border: 0;
+            }
+        }
+    }
+    button{
+        background: transparent;
+        color: $white;
+        height: 48px;
+        line-height: 48px;
+        font-size: 8px;
+    }
+}
+

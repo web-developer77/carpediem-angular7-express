@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="title">
+    <h2>Contáctanos</h2>
+    <p> Nos encantaría escuchar de ti, por favor déjanos un mensaje y nos pondremos en contacto lo más pronto posible. </p>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form #f="ngForm" (ngSubmit)="contact(f)">
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+              <mat-label>Nombre</mat-label>
+              <input type="text" name="name" [(ngModel)]="user.name" matInput required>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-6">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+              <mat-label>Apellido</mat-label>
+              <input type="text" name="last_name" [(ngModel)]="user.last_name" matInput required>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Email</mat-label>
+          <input type="text" name="email" [(ngModel)]="user.email" matInput required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Asunto</mat-label>
+          <input type="text" name="subject" [(ngModel)]="email.subject" matInput required>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Mensaje</mat-label>
+          <textarea type="text" name="massage" [(ngModel)]="message" matInput required rows="10"></textarea>
+        </mat-form-field>
+
+        <button type="submit" class="btn btn-light btn-block">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

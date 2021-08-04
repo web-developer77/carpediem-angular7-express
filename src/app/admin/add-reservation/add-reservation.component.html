@@ -1,0 +1,226 @@
+<div *ngIf="loading" class="lds-ring abs-center">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div *ngIf="!loading" class="content">
+  <div class="add box">
+    <form #f="ngForm" (ngSubmit)="createClass(f)">
+      <div class="flex">
+        <div class="add_form right-border">
+          <h3 class="black-title">
+            {{ edit ? "Edita" : "Agrega" }} Reservaciones
+          </h3>
+          <div class="flex">
+            <div class="f-80 instructor-box">
+              <div class="flex">
+                <div class="f-20 flex">
+                  <img
+                    [src]="image ? image : '/assets/icons/user.jpg'"
+                    style="margin: auto; height: 60px"
+                    alt=""
+                  />
+                </div>
+                <div class="f-50 fm-100">
+                  <mat-form-field
+                    appearance="outline"
+                    [hideRequiredMarker]="true"
+                  >
+                    <mat-label>Instructor</mat-label>
+                    <mat-select
+                      name="instructor"
+                      [(ngModel)]="sub_class?.instructor.$key"
+                      (ngModelChange)="imageChange($event)"
+                      required
+                    >
+                      <mat-option
+                        *ngFor="let instructor of instructors"
+                        [value]="instructor.$key"
+                        >{{ instructor.name }}
+                        {{ instructor.last_name }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="f-100 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Clases</mat-label>
+                <mat-select name="type" [(ngModel)]="sub_class.type" required>
+                  <mat-option value="Indoor Cycling">Indoor Cycling</mat-option>
+                  <mat-option value="Yoga">Yoga</mat-option>
+                  <mat-option value="Funcional">Funcional</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <div class="f-50 fm-100">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Ubicación</mat-label>
+                  <mat-select name="studio" [(ngModel)]="sub_class.studio" required>
+                    <mat-option>None</mat-option>
+                    <mat-option value="Carso Palmas">Carso Palmas</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div> -->
+
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Fecha</mat-label>
+                <input
+                  matInput
+                  id="date"
+                  name="date"
+                  [(ngModel)]="sub_class.date"
+                  [matDatepicker]="picker"
+                  (click)="picker.open()"
+                  autocomplete="off"
+                  required
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Color</mat-label>
+                <mat-select name="color" [(ngModel)]="sub_class.color" required>
+                  <mat-option value="#000000"
+                    ><span
+                      class="color-select"
+                      style="background-color: #000000"
+                    ></span>
+                    Negro
+                  </mat-option>
+                  <mat-option value="#9437C8"
+                    ><span
+                      class="color-select"
+                      style="background-color: #9437c8"
+                    ></span>
+                    Morado
+                  </mat-option>
+                  <mat-option value="#FF6400"
+                    ><span
+                      class="color-select"
+                      style="background-color: #ff6400"
+                    ></span>
+                    Naranja</mat-option
+                  >
+                  <mat-option value="#6EC12D"
+                    ><span
+                      class="color-select"
+                      style="background-color: #6ec12d"
+                    ></span>
+                    Verde
+                  </mat-option>
+                  <mat-option value="#0069F4"
+                    ><span
+                      class="color-select"
+                      style="background-color: #0069f4"
+                    ></span>
+                    Azul
+                  </mat-option>
+                  <mat-option value="#FF00AD"
+                    ><span
+                      class="color-select"
+                      style="background-color: #ff00ad"
+                    ></span>
+                    Rosa
+                  </mat-option>
+                  <mat-option value="#14B8DC"
+                    ><span
+                      class="color-select"
+                      style="background-color: #14b8dc"
+                    ></span>
+                    Aqua
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Hora de inicio</mat-label>
+                <input
+                  [ngxTimepicker]="startpicker"
+                  matInput
+                  name="start"
+                  [(ngModel)]="sub_class.start"
+                  autocomplete="off"
+                  required
+                />
+                <ngx-material-timepicker #startpicker></ngx-material-timepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Hora de fin</mat-label>
+                <input
+                  [ngxTimepicker]="endpicker"
+                  matInput
+                  name="end"
+                  [(ngModel)]="sub_class.end"
+                  autocomplete="off"
+                  required
+                />
+                <ngx-material-timepicker #endpicker></ngx-material-timepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="f-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Descripción de la clase</mat-label>
+                <input
+                  name="description"
+                  [(ngModel)]="sub_class.description"
+                  matInput
+                  placeholder="Se muestra en la página de detalles de la clase pública. Ponga la información / instrucciones de la clase aquí."
+                />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="flex flex-end mar-t-2">
+            <button
+              *ngIf="edit"
+              type="button"
+              mat-button
+              mat-raised-button
+              class="btn_white"
+              color="secondary"
+              [routerLink]="['/admin/classes', sub_class.$key]"
+            >
+              Regresar
+            </button>
+            <button
+              *ngIf="!edit"
+              type="button"
+              mat-button
+              mat-raised-button
+              class="btn_white"
+              color="secondary"
+            >
+              Borrar
+            </button>
+            <button
+              type="submit"
+              mat-button
+              mat-raised-button
+              class="btn_gold"
+              color="accent"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

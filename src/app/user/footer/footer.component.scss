@@ -1,0 +1,28 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+.footer-container{
+    padding-top: 58px;
+    padding-bottom: 25px;
+    background-color: $dark;
+    p, a{
+        color: $white;
+    }
+    a{
+        color: $white;
+        text-decoration: none;
+        transition: color 1s;
+        padding: 0 10px;
+        &:first-child{
+            padding-left: 0;    
+        }
+        &:hover{
+            color:$brown-medium;
+            text-decoration: none;
+        }
+    }
+    .terms{
+        a{
+           text-decoration: underline;
+        } 
+    }
+}

@@ -1,0 +1,462 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// CALENDAR
+.book-calendar-container {
+  padding-top: 92px;
+
+  .title {
+    border-bottom: 1px solid #777269;
+    margin-bottom: 30px;
+
+    i {
+      float: left;
+      font-size: 40px;
+      margin-top: -12px;
+      color: $brown-medium;
+    }
+
+    &>* {
+      font-weight: 600;
+      padding: 20px 0;
+    }
+  }
+
+  .membership-card {
+    height: 98px;
+
+    p {
+      color: $dark;
+    }
+  }
+}
+
+.book-title {
+  font-family: 'Avenir';
+  font-size: 14px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.25px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.book-calendar {
+  &__head {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color: $white;
+
+    p {
+      font-weight: 600;
+      text-align: center;
+
+      @media screen and (max-width: 768px) {
+        font-size: 5px;
+      }
+    }
+  }
+
+  &__timetable {
+    background: $gray-extra-light;
+    padding: 1rem 0;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    margin-bottom: 2rem;
+
+    @media screen and (min-width: 768px) {
+      padding: 25px 10px;
+    }
+
+    p {
+      color: $gray-dark;
+      margin-bottom: 0 !important;
+
+      strong {
+        font-weight: 800;
+      }
+    }
+
+    &:hover {
+      background: $brown-medium;
+
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  &__date {
+    .row {
+      margin-bottom: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .col {
+        padding: 0 5px;
+
+        &>*,
+        p,
+        strong {
+          font-size: 7px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+// BIKE
+.book-bike {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 10rem;
+
+  .btn {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+
+    i {
+      font-size: 50px;
+      color: #fff;
+    }
+  }
+
+  .space {
+    margin-bottom: 20px;
+  }
+
+  .selected {
+    width: 90px;
+    height: 90px;
+  }
+
+  &__single {
+    &>.col {
+      padding: 0;
+    }
+
+  }
+}
+
+
+//THANK YOU
+
+.thank-you-page {
+  .icon-Gracias_por_tu_compra_Off {
+    font-size: 60px;
+    display: block;
+  }
+
+  .justify-content-center {
+
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+  }
+
+  &__section {
+    padding-top: 20px;
+    border-top: 1px solid #979797;
+  }
+
+  &__info {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 30px;
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    p {
+      strong {
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      &.text-typ {
+        margin-top: 10px;
+        color: $gray-extra-medium;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  &__schedule {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.03), 0 4px 11px 0 rgba(0, 0, 0, 0.14);
+
+    button {
+      font-weight: 600;
+      line-height: 2;
+    }
+  }
+}
+
+// EXTRAS
+
+.extras {
+  margin-top: 100px;
+  .icon-Regaderas_vestidores_Off {
+    font-size: 60px;
+    vertical-align: middle;
+  }
+
+  &__type {
+    padding-left: 50px;
+    position: relative;
+    margin-bottom: 20px;
+
+    i {
+      font-size: 60px;
+      position: absolute;
+      left: -6px;
+      top: 0;
+    }
+  }
+
+  p {
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  &__name {
+    margin-bottom: 10px;
+
+    strong {
+      font-size: 20px;
+    }
+  }
+
+  &__price {
+    color: $brown-medium;
+
+    strong {
+      font-size: 18px;
+    }
+  }
+
+  &__select {
+    margin-top: 20px;
+    height: 54px;
+    border: 1px solid $gray-dark;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: 161px;
+    }
+
+    input {
+      float: left;
+      width: 33%;
+      display: block;
+      height: 100%;
+      background: transparent;
+      border: 0;
+      border-right: 1px solid;
+      text-align: center;
+      font-weight: 600;
+
+      &[type="button"] {
+        font-size: 24px;
+        transition: color 1s;
+
+        &:hover {
+          color: $brown-medium;
+        }
+      }
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  .btn-black {
+    margin-top: 40px;
+  }
+}
+
+
+@media screen and (min-width: 1200px) {
+  .resume-container {
+    padding-left: 50px;
+  }
+}
+
+.resume-container .membership-card {
+  height: auto;
+}
+
+.resume-container__discount {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.resume-container__discount p {
+  line-height: 50px;
+}
+
+.resume-container__discount p strong {
+  font-weight: 600;
+}
+
+.resume-container__discount input {
+  border: 1px solid #f5f5f5;
+  height: 50px;
+  padding: 0px 13px;
+  color: #979797;
+  font-weight: 600;
+  float: left;
+}
+
+.resume-container__discount input[type=text] {
+  width: 60%;
+}
+
+.resume-container__discount input[type=button] {
+  width: 30%;
+}
+
+.resume-container__total {
+  margin-bottom: 30px;
+}
+
+.resume-container__total p strong {
+  font-weight: 600;
+}
+
+.resume-container__total p strong span {
+  font-weight: 900;
+}
+
+.resume-container__total p.total-price {
+  margin: -13px 0 0;
+}
+
+.resume-container__total p.total-price span {
+  font-size: 30px;
+}
+
+.center {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.bike-number {
+  color: #F2F2F2;
+  font-family: Avenir;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  line-height: 5px;
+}
+
+.bike-instructor {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+#instructor_background {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  filter: grayscale(25%);
+}
+
+
+
+.top-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  margin-right: 5px;
+  transition: .3s all;
+}
+
+
+.gold-hover:hover {
+  background: #a47b52;
+}
+
+.active {
+    background: #a47b52;
+}
+
+.active-bike {
+  background: #a47b52;
+  border-radius: 50%;
+}
+
+.back-arrow{
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .back-arrow {
+    left: 10px;
+    top: 90px;
+  }
+
+  section#instructor_background {
+    min-height: 60vh !important;
+  }
+
+  .book-bike {
+    zoom: 0.5;
+    margin-top: 260px;
+    max-width: 100% !important;
+    overflow: hidden;
+
+    & > .row > .col, & > .row > .col-4 {
+      margin-right: 0px;
+      margin-left: 0px;
+      max-width: 290px;
+    }
+  }
+
+  .pages-container__head {
+    margin-top: 130px;
+  }
+}
+
+
+.clean{
+  padding: 0 !important;
+  border: none !important;
+}
+
+#instructor_background{
+  background: linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/assets/fotos-reservaciones/main.jpg');
+}
+
+.extras-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+
+.mat-dialog-content {
+    max-height: 79vh !important;
+  }
+
+  .book-bike{
+    margin-top: 0 !important;
+  }

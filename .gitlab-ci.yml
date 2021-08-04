@@ -1,0 +1,50 @@
+
+image: weboaks/node-karma-protractor-chrome
+
+stage_job:
+  stage: deploy
+  only:
+    - development
+
+  before_script:
+    - npm i
+    - node deploy/clean-user.js
+    - npx ng e2e -- --specs './src/**/user-plans.e2e-spec.ts'
+    - node deploy/clean-user.js
+    - npx ng e2e -- --specs './src/**/user-subscriptions.e2e-spec.ts'
+    - node deploy/clean-user.js
+    - npx ng e2e -- --specs './src/**/admin-tests.e2e-spec.ts'
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - echo "$DEPLOY_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - echo "$DEPLOY_HOST" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    - bash deploy/stage.sh
+
+
+prod_job:
+  stage: deploy
+  only:
+    - master
+
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - echo "$DEPLOY_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - echo "$DEPLOY_HOST" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    - bash deploy/prod.sh

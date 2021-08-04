@@ -1,0 +1,297 @@
+<div *ngIf="loading || loading_tab" class="lds-ring abs-center">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="content" *ngIf="!loading">
+  <div class="box user">
+    <div class="user_top">
+      <h2 class="user_name">{{user.name}} {{user.last_name}} <br> <span class="user_email">{{user.email}}</span></h2>
+      <!-- <p>
+        <strong>Plan: {{ user.plan }}</strong>
+      </p>
+      <p *ngIf="user.plan != 'Membresia 20 clases en un mes'">
+        <strong>Vigencía: {{ user?.plan_expiration }}</strong>
+      </p> -->
+      <div>
+        <button *ngIf="user.open_plan" (click)="cancelRenovation()" mat-button mat-raised-button class="btn_whiteNgold" color="secondary"> CANCELAR
+                RENOVACIÓN</button>
+        <button (click)="openManageCredits()" mat-button mat-raised-button class="btn_whiteNgold" color="secondary">ADMINISTRAR CRÉDITOS</button>
+        <button (click)="sendMail()" mat-button mat-raised-button class="btn-gold " color="accent"> <span
+            class="btn-gold_plus">+</span> ENVIAR MAIL</button>
+      </div>
+    </div>
+
+    <div class="user_bottom">
+      <mat-tab-group (selectedTabChange)="getCards($event.index)">
+        <mat-tab label="RESERVAS">
+          <div class="flex-button">
+            <h3 class="user_bottom-title">Reservas en las próximas clases</h3>
+            <button (click)="openBook()" mat-button mat-raised-button class="btn_whiteNgold" color="secondary">NUEVA
+              RESERVACIÓN</button>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <button mat-button mat-raised-button style="margin-right: 1rem;"
+              [color]="filter == 'incoming' ? 'accent': 'secondary'" (click)="filterIncoming()">Reservas
+              futuras</button>
+            <button mat-button mat-raised-button style="margin-right: 1rem;"
+              [color]="filter == 'previous' ? 'accent': 'secondary'" (click)="filterPrevious()">Reservas
+              pasadas</button>
+          </div>
+
+          <table mat-table [dataSource]="bookingsData" matSort>
+            <ng-container matColumnDef="instructor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> INSTRUCTOR </th>
+              <td mat-cell *matCellDef="let booking" class="table-img_container">
+                <img *ngIf="booking.instructor" class="table-img" [src]="booking.instructor.src" alt="">
+                {{booking.instructor.name}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+              <td mat-cell *matCellDef="let booking"> {{booking.date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="time">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> HORARIO </th>
+              <td mat-cell *matCellDef="let booking"> {{booking.time}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="spot">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> LUGAR </th>
+              <td mat-cell *matCellDef="let booking"> {{booking.spot}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+              <td mat-cell *matCellDef="let booking">
+                <img *ngIf="filter == 'incoming'" (click)="cancelBooking(booking)" class="table-icon"
+                  src="/assets/icons/basura.png" alt="borrar">
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="bookingsCols"></tr>
+            <tr mat-row *matRowDef="let row; columns: bookingsCols;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+
+        </mat-tab>
+        <mat-tab label="COMPRAS">
+          <div class="flex-button">
+            <div>
+              <!-- <h3 class="user_bottom-title">Pases Activos y Pendientes</h3> -->
+              <h3 class="user_bottom-title">Historial de compras</h3>
+              <span *ngIf="purchaseData.data.length == 0" class="user_bottom-text">{{user.name}} no cuenta con membresía
+                activa o pendiente</span>
+            </div>
+            <button (click)="openBuy()" mat-button mat-raised-button class="btn_whiteNgold" color="secondary">ASIGNAR
+              MEMBRESÍA</button>
+          </div>
+          <table mat-table [dataSource]="purchaseData" matSort>
+            <ng-container matColumnDef="package">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> PAQUETE</th>
+              <td mat-cell *matCellDef="let purchase"> {{purchase.package}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+              <td mat-cell *matCellDef="let purchase"> {{purchase.date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="card">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> MÉTODO DE PAGO </th>
+              <td mat-cell *matCellDef="let purchase"> {{purchase.card}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount ">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> CANTIDAD </th>
+              <td mat-cell *matCellDef="let purchase"> {{purchase.amount | currency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expiration">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> EXPIRACIÓN </th>
+              <td mat-cell *matCellDef="let purchase"> {{purchase.expiration}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+              <td mat-cell *matCellDef="let purchase">
+                <img *ngIf="purchase.card == 'Pago en Mostrador' || purchase.card == 'Cortesía'"
+                  (click)="cancelPurchase(purchase)" class="table-icon" src="/assets/icons/basura.png" alt="borrar">
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="purchaseCols"></tr>
+            <tr mat-row *matRowDef="let row; columns: purchaseCols;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+
+        </mat-tab>
+        <mat-tab label="FORMA DE PAGO">
+          <div class="card-body">
+            <div class="flex-button">
+              <h3 class="user_bottom-title">Formas de pago</h3>
+              <button (click)="addCard()" mat-button mat-raised-button class="btn_whiteNgold" color="secondary">Agregar
+                tarjeta</button>
+            </div>
+
+            <table mat-table [dataSource]="cardsData" matSort>
+              <ng-container matColumnDef="brand">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> TIPO</th>
+                <td mat-cell *matCellDef="let card">
+                  {{card.brand}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="card_number">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NUMERO </th>
+                <td mat-cell *matCellDef="let card"> {{card.card_number}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let card">
+                  <span (click)="deleteCard(card)">
+                    <img width="15" src="/assets/generales/basura.png" alt="">
+                  </span>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="cardsCols"></tr>
+              <tr mat-row *matRowDef="let row; columns: cardsCols;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+            </mat-paginator>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="EDITAR">
+          <form #f="ngForm" (ngSubmit)="updateUser(f)">
+            <div class="flex">
+              <div class="add_form right-border fm-100">
+                <h3 class="user_bottom-title mar-b-1">Editar información del usuario</h3>
+                <div class="flex">
+                  <div class="user-box">
+                    <div class="flex">
+                      <div class="f-20 flex">
+                        <img [src]="fileUrl ? fileUrl : '/assets/icons/user.jpg'" style="margin:auto" alt="">
+                        <input class="input_file" type="file" (change)="addFile($event.target.files)" />
+                      </div>
+                      <div class="f-40 ">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                          <mat-label>Nombre</mat-label>
+                          <input type="text" name="name" [(ngModel)]="user.name" matInput required>
+                        </mat-form-field>
+                      </div>
+                      <div class="f-40 ">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                          <mat-label>Apellido</mat-label>
+                          <input type="text" name="last_name" [(ngModel)]="user.last_name" matInput required>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="flex">
+                  <div class="f-50 fm-100">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <mat-label>Teléfono</mat-label>
+                      <input name="phone" type="phone" [(ngModel)]="user.phone" matInput required>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="f-50 fm-100">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <mat-label>Fecha de cumpleaños</mat-label>
+                      <input matInput name="born" [(ngModel)]="user.born" [matDatepicker]="picker"
+                        (click)="picker.open()" autocomplete="off" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="f-50 fm-100">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <mat-label>Talla</mat-label>
+                      <mat-select name="shoe_type" [(ngModel)]="user.shoe_type" required>
+                        <mat-option value="Europeo">Europeo</mat-option>
+                        <mat-option value="Americano">Americano</mat-option>
+                        <mat-option value="Mexicano">Mexicano</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="f-50 fm-100">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <mat-label>Medida</mat-label>
+                      <mat-select [disabled]="!user.shoe_type" name="shoe_size" [(ngModel)]="user.shoe_size" required>
+                        <mat-option
+                          *ngFor="let s of sizes[user.shoe_type === 'Europeo' ? 0 : (user.shoe_type === 'Americano' ? 1 : 2)]"
+                          value="{{s}}">{{s}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                <div class="flex flex-end mar-t-2">
+                  <button type="button" mat-button mat-raised-button class="btn_white"
+                    color="secondary">Cancelar</button>
+                  <button type="submit" mat-button mat-raised-button class="btn_gold " color="accent">Guardar</button>
+                </div>
+
+              </div>
+
+              <div class="add_side fm-100">
+
+                <div class="settings">
+                  <div class="settings_box">
+                    <h5 class="settings_title">Información adicional</h5>
+                    <mat-checkbox name="reservations" [(ngModel)]="emergency_contact" class="mylabel">Contacto de
+                      emergencia</mat-checkbox>
+                    <mat-form-field style="margin-top: 1rem;" *ngIf="emergency_contact" appearance="outline"
+                      [hideRequiredMarker]="true">
+                      <mat-label>Nombre del contacto de emergencia</mat-label>
+                      <input type="text" name="emergency_contact" [(ngModel)]="user.emergency_contact" matInput
+                        placeholder="Escribe el nombre y apellido">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="emergency_contact" appearance="outline" [hideRequiredMarker]="true">
+                      <mat-label>Teléfono de contacto de emergencia</mat-label>
+                      <input type="text" name="emergency_phone" [(ngModel)]="user.emergency_phone" matInput
+                        placeholder="Escribe el télefono">
+                    </mat-form-field>
+
+                    <mat-checkbox name="injury" [(ngModel)]="injury" class="mylabel">Alguna lesión o dolor que
+                      deberíamos saber</mat-checkbox>
+                    <div>
+                      <p *ngIf="injury" class="settings_text">Esta información nos ayuda a que te cuidemos de la mejor
+                        forma y tengas el mejor rendimiento</p>
+                      <mat-form-field *ngIf="injury" appearance="outline" [hideRequiredMarker]="true">
+                        <mat-label>Escribe estado de salud</mat-label>
+                        <input type="text" name="health" [(ngModel)]="user.health" matInput
+                          placeholder="Escribe estado de salud">
+                      </mat-form-field>
+                      <mat-checkbox name="mails" [(ngModel)]="mails" class="mylabel"> No envíe un correo electrónico a
+                        este usuario</mat-checkbox>
+                      <p *ngIf="mails" class="settings_text">El usuario seguirá recibiendo los recibos por correo
+                        electrónico si realiza una compra de pase o una reserva de clase</p>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>

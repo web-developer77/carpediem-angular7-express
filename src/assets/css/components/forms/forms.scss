@@ -1,0 +1,188 @@
+.form-container{
+    .title-line{
+        margin-bottom: 10px;
+    }
+    &__head{
+        margin-bottom: 50px;
+    }
+    &__legend{
+        p, a{
+            font-size: 18px;
+        }
+    }
+}
+
+.form{
+    &__group{
+        margin-bottom: 20px;
+        position: relative;
+        input{
+            border: 1px solid $gray-dark;
+            height: 45px;
+            padding: 0 20px 0 40px;
+            display: block;
+            width: 100%;
+            color: $brown-medium;
+            transition : border 500ms ease-out;
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color:$gray-light;
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color:$gray-light;
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color:$gray-light;
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color:$gray-light;
+            }
+            &:focus, &:hover{
+                border-color: $brown-medium;
+            }
+        }
+    }
+    &__check{
+        label{
+            font-size: 12px;
+            font-weight: 500;
+            color: $gray-medium;
+        }
+    }
+    .btn-link{
+        font-size: 12px;
+    }
+    &__btn{
+        margin: 20px 0 30px;
+        .btn{
+            font-weight: 700;
+            &:hover, &:focus{
+                @include shadows(-8px 8px 0px 0px $brown-light);
+            }
+        }
+    }
+    .close-error{
+        display: none;
+    }
+    &__error{
+        input{
+            border-color: $error;
+            color: $error;
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color:$error;
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color:$error;
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color:$error;
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color:$error;
+            }
+            &:focus, &:hover{
+                border-color: $error;
+            }
+        }
+
+        .close-error{
+            position: absolute;
+            right: 20px;
+            top: 6px;
+            display: block;
+            &::after{
+                content: '';
+                background: url('/assets/generales/error.png') no-repeat;
+                width: 30px;
+                height: 30px;
+                display: block;
+                background-size: 17px;
+                background-position: 10px 5px;
+            }
+            &:hover{
+                opacity: .4;
+            }
+        }
+    }
+}
+
+
+.form-create{
+    &__input{
+        label{
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        input{
+            height: 50px;
+            border: 2px solid #f5f5f5;
+            width: 100%;
+            padding: 0px 15px;
+        }
+    }
+    &__section{
+        margin-bottom: 30px;
+    }
+    &__select{
+        position: relative;
+        div{
+            height: 50px;
+            border: 2px solid #f5f5f5;
+            padding: 0px 15px;
+            line-height: 50px;
+            font-weight: 600;
+            color: #979797;
+        }
+        select{
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.checkbox{
+    position: relative;
+    input{
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        &[type=checkbox]:checked + label:before{
+            opacity: 1;
+        }
+    }
+    label{
+        background: $brown-medium;
+        display: block;
+        border-radius: 4px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        margin-top: 3px;
+        margin-left: 6px;
+        &::before{
+            content: '';
+            width: 9px;
+            height: 5px;
+            position: absolute;
+            top: 6px;
+            left: 11px;
+            border: 2px solid $white;
+            border-top: none;
+            border-right: none;
+            background: transparent;
+            opacity: 0;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+.btn{
+    font-size: 1.6rem;
+}

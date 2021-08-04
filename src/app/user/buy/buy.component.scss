@@ -1,0 +1,362 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.pages-container {
+  @media only screen and (max-width:700px) {
+    margin-top: 60px;
+  }
+}
+
+.pages-container__head {
+  @media only screen and (max-width:700px) {
+    margin-left: 20px;
+    padding: 0 44px 0 21px;
+  }
+
+  & > div {
+    @media only screen and (max-width:700px) {
+      padding: 0;
+    }
+  }
+
+  .type-card {
+    @media only screen and (max-width:700px) {
+      height: 50px;
+      width: 63px;
+      text-align: center;
+      padding: 24px 0 0;
+      background-position: center 0;
+    }
+  }
+}
+
+.membership-container {
+  &.intro-container {
+    height: auto;
+    background: black;
+
+    .title-line {
+      border-color: $white;
+
+      &__secondary,
+      &__main {
+        color: $white;
+      }
+    }
+
+    .membership-legend {
+      color: $white;
+    }
+  }
+}
+
+ul.cards-list {
+  height: 57px;
+  margin-bottom: 0px;
+
+  li{
+      display: inline;
+      padding: 0 10px;
+  }
+}
+
+.resume-container {
+  max-width: 420px;
+
+  @media only screen and (max-width:700px) {
+    max-width: 100%;
+    padding: 10px 30px;
+  }
+}
+
+.discount-box {
+  display: flex;
+  justify-content: flex-end;
+
+  .disccount-input {
+    width: 149px;
+    height: 50px;
+    border: 1px solid #F5F5F5;
+    padding: 18px 20px;
+    font-size: 12px;
+    margin: 0px;
+  }
+
+  .disccount-btn {
+    border: solid 1px #f5f5f5;
+    background-color: #ffffff;
+    font-family: Avenir;
+    font-size: 12px;
+    font-weight: 900;
+    color: #979797;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 50px;
+  }
+}
+
+.membership-card{
+  background: $gray-extra-light;
+  border: 1px solid $gray-extra-light;
+  @include shadows (0 2px 7px 0 rgba(189, 189, 189, 0.5));
+  transition: background-color 0.5s ease;
+  position: relative;
+  cursor: pointer;
+  line-height: 1.5;
+  height: auto;
+  margin-bottom: 50px;
+  @media screen and (min-width: 1024px){
+    width: 200px;
+  }
+  &__container{
+      overflow: hidden;
+      padding: 15px;
+      position: relative;
+  }
+  &__title{
+      color: $gray-dark;
+      font-family: Avenir !important;
+      font-size: 14px !important;
+      font-weight: 900 !important;
+      text-transform: uppercase;
+  }
+  &__price{
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #191919;
+  }
+  &__expiraton{
+      color: $gray-extra-medium;
+      line-height: 1.5;
+      font-size: 14px;
+  }
+  &__button{
+      background: $white;
+      border: 1px solid $gray-dark;
+      color: $gray-dark;
+      text-transform: uppercase;
+      font-size: 12px;
+      @include shadows(-4px 4px 0px 0px $gray-light);
+      transition: background-color 0.5s ease;
+      padding: 7px 25px;
+      line-height: 1;
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+  }
+  &__discount{
+      transform: rotate(35deg);
+      position: absolute;
+      right: -30px;
+      background: #dedede;
+      padding: 2px 29px;
+      font-size: 10px;
+      font-weight: 700;
+      top: 24px;
+      text-transform: uppercase;
+  }
+  &__through{
+    text-decoration:line-through;
+  }
+  &:hover{
+      background: $brown-medium;
+      border-color: $brow-dark;
+
+      & * p {
+          color: $brown-light !important;
+      }
+
+      .membership-card__button{
+          background: $brown-light;
+          border-color: $brown-medium;
+          color: $brown-medium;
+          @include shadows(-4px 4px 0px 0px $brown-light);
+      }
+  }
+}
+
+.btn.btn-brown.btn-block {
+  background: #8b5b2a;
+  border-color: #8b5b2a;
+  border: none !important;
+  color: white !important;
+  box-shadow: -8px 8px 0px 0px #eee6dd;
+  width: 360px;
+
+  &:hover {
+    color: #212529 !important;
+    background-color: transparent !important;
+  }
+}
+
+
+.membership-legend{
+  font-size: 14px;
+  margin: 50px 0 0;
+}
+
+ //PAYMENT
+
+ .create-card{
+  &__menu{
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+      ul{
+          li{
+              display: inline;
+              padding: 0 10px;
+          }
+      }
+  }
+  &__type{
+      text-indent: -99999px;
+      width: 48px;
+      padding-bottom: 57px;
+      height: 30px;
+      &.visa{
+          background: url('/assets/payment-form/visa.png') no-repeat;
+          background-size: 48px;
+      }
+      &.master{
+          background: url('/assets/payment-form/mastercard.png') no-repeat;
+          background-size: 48px;
+      }
+      &.american{
+          background: url('/assets/payment-form/american-express.png') no-repeat;
+          background-size: 48px;
+      }
+      &.paypal{
+          background: url('/assets/payment-form/paypal.png') no-repeat;
+          background-size: 48px;
+      }
+      &.add-card{
+          background: url('/assets/payment-form/add-card.svg');
+          background-repeat: no-repeat;
+          background-size: 48px;
+      }
+  }
+  &__info{
+      margin-top:30px;
+      background: white;
+      padding: 40px 30px;
+  }
+}
+
+.active-card{
+    border-bottom: 2px solid $brown-medium;
+}
+
+.higher{
+    height: 192px;
+}
+
+
+.disccount-input{
+    border: solid 1px #f5f5f5;
+}
+.disccount-btn{
+    border: solid 2px #f5f5f5;
+    background-color: #ffffff;
+    font-family: Avenir;
+    font-size: 12px;
+    font-weight: 900;
+    color: #979797;
+    padding: 10px 5px;
+}
+
+.cart{
+    background-color: #f9f9f9;
+
+    p{
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+
+.total{
+  font-family: Avenir;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 0.54px;
+  color: #191919;
+}
+
+.payment-container {
+    &__card {
+      border-bottom: 1px solid #f5f5f5;
+      padding: 30px 0;
+
+      p {
+        color: $gray-dark;
+        font-weight: 600;
+        margin-top: 9px;
+      }
+
+      button {
+        margin-top: 5px;
+        cursor: pointer;
+        background: white;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  .type-card {
+    font-weight: 600;
+    height: 31px;
+    padding-left: 60px;
+    line-height: 31px;
+
+    &.visa {
+      background: url('/assets/payment-form/visa.png');
+      background-repeat: no-repeat;
+      background-size: 48px;
+    }
+
+    &.mastercard {
+      background: url('/assets/payment-form/mastercard.png');
+      background-repeat: no-repeat;
+      background-size: 48px;
+    }
+
+    &.american {
+      background: url('/assets/payment-form/american-express.png');
+      background-repeat: no-repeat;
+      background-size: 48px;
+    }
+
+    &.add-card {
+      background: url('/assets/payment-form/add-card.svg');
+      background-repeat: no-repeat;
+      background-size: 48px;
+    }
+  }
+
+
+  .f-center{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .form__btn {
+    display: flex;
+    justify-content: center;
+  }
+
+
+.special{
+  background: #a47b52 !important;
+  border-color: #8b5b2a !important;
+}
+
+.w{
+  color: #FFF !important;
+}

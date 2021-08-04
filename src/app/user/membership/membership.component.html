@@ -1,0 +1,327 @@
+<section class="membership-container" id="target">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="membership-container__head">
+          <div class="title-line">
+            <h2 class="title-line__secondary">Paquetes</h2>
+          </div>
+
+          <p class="d-md-none">Paquetes de clases individuales</p>
+        </div>
+        <div class="row membership-container__row">
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 0]">
+              <div class="membership-card__container">
+                <p
+                  class="membership-card__discount"
+                  *ngIf="packages[0].discount"
+                >
+                  {{ packages[0].discount }}% de descuento
+                </p>
+                <p class="membership-card__title">Primera Clase</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[0].discount"
+                >
+                  ${{ packages[0].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[0].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[0].expiration }} días de caducidad.
+                </p>
+              </div>
+
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 1]">
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount"
+                  *ngIf="packages[1].discount"
+                >
+                  {{ packages[1].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">Una Clase</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[1].discount"
+                >
+                  ${{ packages[1].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[1].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[1].expiration }} días de caducidad.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="w-100 d-sm-none"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 2]">
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[2].discount"
+                >
+                  {{ packages[2].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">5 Clases</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[2].discount"
+                >
+                  ${{ packages[2].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[2].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[2].expiration }} días de caducidad.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 3]">
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[3].discount"
+                >
+                  {{ packages[3].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">10 Clases</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[3].discount"
+                >
+                  ${{ packages[3].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[3].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[3].expiration }} días de caducidad.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="w-100 d-sm-none"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 4]">
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[4].discount"
+                >
+                  {{ packages[4].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">25 Clases</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[4].discount"
+                >
+                  ${{ packages[4].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[4].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[4].expiration }} días de caducidad.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div class="membership-card" [routerLink]="['/carpe/buy', 5]">
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[5].discount"
+                >
+                  {{ packages[5].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">50 Clases</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[5].discount"
+                >
+                  ${{ packages[5].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[5].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  {{ packages[5].expiration }} días de caducidad.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="membership-container__head">
+          <div class="title-line">
+            <h2 class="title-line__secondary">Membresías</h2>
+          </div>
+          <p class="d-md-none">
+            Prioridad de la lista de espera: estarás en la parte superior de las
+            listas de espera.
+          </p>
+        </div>
+        <div class="row membership-container__row">
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div
+              class="membership-card higher special"
+              [routerLink]="['/carpe/buy', 9]"
+            >
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[9].discount"
+                >
+                  {{ packages[9].discount }}% de descuento
+                </div>
+                <p class="w membership-card__title">
+                  Mes Ilimitado de clases virtuales
+                </p>
+                <p
+                  class="w membership-card__through"
+                  *ngIf="packages[9].discount"
+                >
+                  ${{ packages[9].fullPrice | number }}
+                </p>
+                <p class="w membership-card__price">
+                  ${{ packages[9].price | number }}
+                </p>
+                <p class="w membership-card__expiraton">
+                  Esta membresía se renovará automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div
+              class="membership-card higher"
+              [routerLink]="['/carpe/buy', 6]"
+            >
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[6].discount"
+                >
+                  {{ packages[6].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">Mes Limitado</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[6].discount"
+                >
+                  ${{ packages[6].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[6].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  20 clases durante todo el mes. Esta membresía se renovará
+                  automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-100 d-sm-none"></div>
+
+        <div class="row membership-container__row">
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div
+              class="membership-card higher"
+              [routerLink]="['/carpe/buy', 7]"
+            >
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[7].discount"
+                >
+                  {{ packages[7].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">Mes Ilimitado</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[7].discount"
+                >
+                  ${{ packages[7].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[7].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  Esta membresía se renovará automáticamente cada mes.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-6">
+            <div
+              class="membership-card higher"
+              [routerLink]="['/carpe/buy', 8]"
+            >
+              <div class="membership-card__container">
+                <div
+                  class="membership-card__discount red_ribbon"
+                  *ngIf="packages[8].discount"
+                >
+                  {{ packages[8].discount }}% de descuento
+                </div>
+                <p class="membership-card__title">Año Ilimitado</p>
+                <p
+                  class="membership-card__through"
+                  *ngIf="packages[8].discount"
+                >
+                  ${{ packages[8].fullPrice | number }}
+                </p>
+                <p class="membership-card__price">
+                  ${{ packages[8].price | number }}
+                </p>
+                <p class="membership-card__expiraton">
+                  Esta membresía {{ packages[8].discount ? "NO" : "" }} se
+                  renovará automáticamente cada año.
+                </p>
+              </div>
+              <button class="membership-card__button">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="membership-legend">
+          *Las membresías se renovarán automáticamente.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

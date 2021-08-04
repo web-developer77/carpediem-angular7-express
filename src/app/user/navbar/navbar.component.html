@@ -1,0 +1,68 @@
+<div class="wrapper-general">
+  <div class="header-container">
+    <header class="container-fluid">
+      <div class="row">
+        <div class="col">
+            <div class="navbar_hamburger">
+                <input type="checkbox" [(ngModel)]="open" class="navbar__checkbox" id="navi-toggle">
+            
+                <label for="navi-toggle"  class="navbar__button">
+                    <span class="navbar__icon">&nbsp;</span>
+                </label>
+              </div>
+        </div>
+
+        <div class="col text-center">
+          <a [routerLink]="[ '/carpe/home']" >
+            <img width="153" src="/assets/logo-carpe-diem.png" alt="">
+          </a>
+        </div>
+
+        <div class="col text-right">
+          <div class="my-account">
+
+            <span *ngIf="user.$key; else login">
+              <a class="btn-txt-white"  *ngIf="!user.admin; else admin"  [routerLink]="[ '/carpe/profile', user.$key ]">
+                <img width="30" src="/assets/generales/tu-cuenta.png" alt="">
+                <span class="d-md-block user-name">{{user.name}} {{user.last_name}}</span>
+              </a>
+
+              <ng-template #admin>
+                  <a class="btn-txt-white"   [routerLink]="['/admin/home']">
+                    <img width="30" src="/assets/generales/tu-cuenta.png" alt="">
+                    <span class="d-md-block user-name">Admin Panel</span>
+                  </a>
+              </ng-template>
+            </span>
+
+            <ng-template #login>
+              <a class="btn-txt-white flex f-center" [routerLink]="[ '/login']">
+                <img width="30" src="/assets/generales/tu-cuenta.png" alt="">
+                <span class="d-md-block user-name">Ingresar</span>
+              </a>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <div class="menu" *ngIf="open" [@panelInOut]>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link"  (click)="open = false"  [routerLink]="[ '/carpe/book']"  routerLinkActive="active" >Reservar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  (click)="open = false"  [routerLink]="[ '/carpe/instructors']" routerLinkActive="active" >Instructores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  (click)="open = false"  [routerLink]="[ '/carpe/about']" routerLinkActive="active" >Mindful Training</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  (click)="open = false"  [routerLink]="[ '/carpe/buy']" routerLinkActive="active" >Comprar clases</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  (click)="open = false"  [routerLink]="[ '/carpe/contact']" routerLinkActive="active" >Hablemos</a>
+      </li>
+    </ul>
+  </div>

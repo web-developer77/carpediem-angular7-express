@@ -1,0 +1,101 @@
+<div class="intro-container black-container instructor-schedule andy" id="background">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8 instructor-schedule__info">
+        <!-- <div class="instructor-schedule__image">
+          <img src="/assets/instructores/instructores-single/andy/andy-header.jpg" alt="">
+        </div> -->
+
+        <div class="instructor-schedule__description">
+          <h1 class="name">{{instructor?.name}} {{instructor?.last_name}}</h1>
+          <p class="description" [innerHTML]="instructor?.description"> </p>
+          <!-- <div class="instructor-legend">
+                <p><i>“Tu situación actual no es tu destino final”</i></p>
+                <p><i>“Eres suficiente”</i></p>
+            </div> -->
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-lg-3 instructor-schedule__container">
+        <div class="schedule-list">
+          <div *ngFor="let class of classes">
+            <div class="row" *ngIf="class.classes.length > 0">
+              <div class="schedule-list__title">
+                {{class.date}}
+              </div>
+              <div class="schedule-list__date">
+                <ul *ngFor="let time of class.classes">
+                  <li>{{time.start}}</li>
+                  <li>{{time.type}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="instructors-container" *ngIf="instructor?.phrase" style="padding: 60px 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="instructors-container__info ">
+          <p class="instructor-text2">
+            Lo que {{instructor?.name}} busca hacer cada clase
+          </p>
+          <p class="instructor-text">
+            {{instructor?.phrase}}
+          </p>
+          <p class="instructor-text2">
+            Empieza hoy, reserva una clase
+          </p>
+          <button class="btn btn-light btn-block" [routerLink]="[ '/carpe/book']">Reserva tu clase</button>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="instructors-container__photo2" style="display: flex">
+          <div class="img-both" style="margin: auto">
+            <img class="img-both__big" width="400" [src]="instructor?.src" alt="">
+            <!-- <img class="img-both__small" width="351"
+              src="/assets/instructores/instructores-single/andy/andy-cuadrada.jpg" alt=""> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="instructor-more black-container" *ngIf="instructor?.more">
+  <div class="container">
+    <div class="instructor-more__container">
+      <div class="row">
+        <div class="d-lg-block col-lg-6" style="margin-bottom: 40px;" *ngIf="instructor?.images">
+          <img class="img-fluid" [src]="instructor.images[0]" alt="">
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+          <h1 class="name">Más de {{instructor?.name}} {{instructor?.last_name[0]}}</h1>
+
+          <div class="description">
+            <p class="description" [innerHTML]="instructor?.more"> </p>
+          </div>
+          <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+            <div class="form__btn">
+              <button class="btn btn-light btn-block" [routerLink]="[ '/carpe/book']">Reserva tu clase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 space"></div>
+      <div class="row">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-2" *ngFor="let image of instructor?.images | slice:1; index as i">
+          <div class="instructor-more__galery active">
+            <img class="img-fluid" [src]="image" alt="" (click)="changeImg(i+1)" style="cursor: pointer;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

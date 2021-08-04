@@ -1,0 +1,127 @@
+<div class="content">
+    <div *ngIf="loading" class="lds-ring abs-center" style="z-index: 999;">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+  <div class="reservations">
+    <div class="box reservations_top">
+      <div class="reports_top">
+        <h2 class="reports_title">REPORTES</h2>
+      </div>
+      <div class="reports_bottom">
+        <div class="reports_box">
+          <span class="reports_number">{{total_spots}}</span>
+          <span class="reports_text">Lugares totales </span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{spots}}</span>
+          <span class="reports_text"> Lugares dispoibles </span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{riders}}</span>
+          <span class="reports_text">Riders confirmados</span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">{{occupancy | number : '1.2'}}% </span>
+          <span class="reports_text">Ocuppancy % </span>
+        </div>
+        <!-- <div class="reports_box">
+          <span class="reports_number">7%</span>
+          <span class="reports_text">No show % </span>
+        </div>
+        <div class="reports_box">
+          <span class="reports_number">54</span>
+          <span class="reports_text">New Riders </span>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="box reservations_bottom">
+      <div class="table_top">
+        <mat-form-field style="width: 30rem " appearance="outline">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+        <div class="flex f-center" style="flex-wrap: nowrap;">
+          <button [routerLink]="['/admin/add-user']" mat-button mat-raised-button class="btn-gold " color="accent">
+            <span class="btn-gold_plus">+</span> Agregar usuario</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem;">
+          <button mat-button mat-raised-button style="margin-right: 1rem;" [color]="filter == 'incoming' ? 'accent': 'secondary'" (click)="filterIncoming()">Reservas futuras</button>
+          <button mat-button mat-raised-button style="margin-right: 1rem;" [color]="filter == 'today' ? 'accent': 'secondary'" (click)="filterToday()">Reservas del día</button>
+          <button mat-button mat-raised-button style="margin-right: 1rem;" [color]="filter == 'previous' ? 'accent': 'secondary'" (click)="filterPrevious()">Reservas pasadas</button>
+          <button mat-button mat-raised-button style="margin-right: 1rem;" (click)="downloadHistorical()">
+            Descargar historico
+         </button>
+        </div>
+
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDirection="desc">
+        <ng-container matColumnDef="instructor.name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> INSTRUCTOR </th>
+          <td mat-cell *matCellDef="let sub_class" class="table-img_container">
+            <img class="table-img"
+              [src]="sub_class.instructor.src ? sub_class.instructor.src : '/assets/icons/user.jpg'" alt="">
+            {{sub_class.instructor.name}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CLASE </th>
+          <td mat-cell *matCellDef="let sub_class"> {{sub_class.type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+          <td mat-cell *matCellDef="let sub_class"> {{sub_class.date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> HORARIO </th>
+          <td mat-cell *matCellDef="let sub_class"> {{sub_class.start}} a {{sub_class.end}} </td>
+          <!-- <td mat-cell *matCellDef="sub_class"> {{class.date.toDate() | date:'dd/MM/yyyy'}} </td> -->
+        </ng-container>
+
+        <ng-container matColumnDef="limitNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> DISPONIBLE </th>
+          <td mat-cell *matCellDef="let sub_class"> {{(sub_class.type === 'Indoor Cycling' ? 17 : 6) - sub_class.users_count}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="users_count">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> RESERVAS </th>
+          <td mat-cell *matCellDef="let sub_class"> {{sub_class.canceled ? 'Cancelada' : sub_class.users_count}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="view">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> VER CLASE </th>
+          <td mat-cell *matCellDef="let sub_class">
+            <button mat-button (click)="openUsers(sub_class.$key)">Ver</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+          <td mat-cell *matCellDef="let sub_class" style="position: relative;">
+            <!-- <img class="table-icon" (click)="deleteReservation(sub_class)" src="/assets/icons/basura.png" alt=""> -->
+            <img class="table-icon" (click)="sub_class.more = !sub_class.more" src="/assets/icons/mas-acciones.png"
+              alt="">
+            <div class="more" [hidden]='!sub_class.more'>
+              <ul (click)="sub_class.more = !sub_class.more">
+                <li [routerLink]="['/admin/edit-reservation', sub_class.$key]">Editar</li>
+                <li (click)="addNote(sub_class.$key)">{{sub_class.note ? 'Ver nota' : 'Agregar nota'}}</li>
+              </ul>
+            </div>
+          </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>

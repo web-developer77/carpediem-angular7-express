@@ -1,0 +1,220 @@
+@import '../../../assets/css/user.scss';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.header-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 82px;
+  border-bottom: 1px solid #777269;
+  width: 100%;
+  line-height: 82px;
+  background: #000;
+
+
+  img {
+    vertical-align: middle;
+  }
+
+  .menu-nav {
+    width: 35px;
+    margin: 19px 0;
+    padding: 10px 10px 10px 0;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+
+    span {
+      height: 3px;
+      background: $white;
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+      border-radius: 5px;
+
+      &:first-child {
+        width: 85%;
+      }
+
+      &:last-child {
+        width: 70%;
+      }
+    }
+
+    &:hover {
+      span {
+        background: $brown-medium;
+      }
+    }
+  }
+
+  .my-account {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 82px;
+    
+    img {
+      margin-right: 10px;
+      width: 35px;
+      height: 35px;
+    }
+
+    a {
+      display: flex;
+      position: relative;
+      align-items: center;
+      text-transform: uppercase;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      & > span {
+        &.user-name {
+          @media only screen and (max-width: 600px) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &>* {
+      color: $white;
+    }
+  }
+}
+
+.menu {
+  background: linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/assets/generales/header-home.jpg') !important; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  margin: 0;
+
+  .nav {
+    .nav-item {
+      a {
+        font-size: 30px;
+        font-weight: 600;
+        color: $white;
+        display: inline-block;
+        transition: .3s all;
+
+        @media screen and (min-width: 768px) {
+          font-size: 48px;
+        }
+
+        &:hover, &:active {
+          color:  $brown-medium;
+        }
+      }
+    }
+  }
+}
+
+
+.navbar{
+    // HAMBURGER
+    
+
+
+  &_hamburger{
+    margin-left: 30px;
+  }
+
+
+  &__checkbox {
+    display: none;
+  }
+
+
+  &__checkbox:checked~&__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked~&__nav {
+    opacity: 1;
+    width: 100%;
+  }
+
+
+  //ICON
+  &__icon {
+    position: relative;
+    margin-top: 35px;
+
+    &,
+    &::before,
+    &::after {
+      width: 30px;
+      height: 2px;
+      background-color: #fff;
+      display: inline-block;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      width: 25px;
+      position: absolute;
+      left: 0;
+      transition: all .2s;
+    }
+
+    &::before {
+      top: -8px;
+    }
+
+    &::after {
+      top: 8px;
+      width: 22px;
+    }
+  }
+
+  &__button:hover &__icon {
+    background-color: $brown-medium;
+  }
+
+  &__button:hover &__icon::before {
+    top: -10px;
+    background-color: $brown-medium;
+  }
+
+  &__button:hover &__icon::after {
+    top: 10px;
+    background-color: $brown-medium;
+  }
+
+  &__checkbox:checked+&__button &__icon {
+    background-color: transparent;
+  }
+
+  &__checkbox:checked+&__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+    width: 30px;
+    background-color: $brown-medium;
+  }
+
+  &__checkbox:checked+&__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+    width: 30px;
+    background-color: $brown-medium;
+  }
+}
+
+.active{
+  color:  $brown-medium !important;
+}

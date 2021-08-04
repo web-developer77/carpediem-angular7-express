@@ -1,0 +1,169 @@
+.btn{
+    font-size: 1.4rem;
+    border-radius: 0;
+    &.btn-circle{
+        border-radius: 100%;
+        width: 60px;
+        height: 60px;
+    }
+    &.btn-small{
+        font-size: 10px;
+        font-weight: 700;
+        padding: 7px 25px;
+    }
+}
+
+.btn-light{
+    background: #f9f9f9 !important;
+    border: 1px solid $gray-dark !important;
+    text-transform: uppercase;
+    @include shadows(-8px 8px 0px 0px $gray-light);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Avenir;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.25px;
+    text-align: center;
+    color: #191919  !important;
+
+
+    &.btn-small{
+        @include shadows(-5px 5px 0px 0px $gray-light);
+        &:hover, &:focus{
+            @include shadows(-5px 5px 0px 0px $brown-light);
+        }
+        &:not(:disabled):not(.disabled).active, &.active{
+            @include shadows(-5px 5px 0px 0px $brown-light);
+        }  
+    }
+    &:hover, &:focus{
+        background: $brown-light;
+        border-color: $brown-medium;
+        color: $brown-medium;
+        @include shadows(-8px 8px 0px 0px $brown-light);
+    }
+    &:not(:disabled):not(.disabled).active, &.active{
+        background: $brown-medium !important;
+        border-color: $brow-dark !important;
+        color: $white  !important;
+        @include shadows(-8px 8px 0px 0px $brown-light);  
+    }  
+    &.btn-block{
+        height: 50px;
+    }
+    &.btn-circle{
+        @include shadows(none);
+        &:hover, &:focus, 
+        &:not(:disabled):not(.disabled).active, &.active{
+            @include shadows(none);
+        }
+    }
+}
+
+.btn-transparent{
+    background:transparent;
+    border: 2px solid $white;
+    color: $white;
+    text-transform: uppercase;
+    &:not(:disabled):not(.disabled).active, &.active,
+    &:hover{
+        background: $brown-medium;
+        border-color: $brow-dark;
+        color: $white;
+    } 
+    &.btn-circle{
+        border: 2px solid $white;
+        &:hover{
+            background: $brown-medium;
+            border-color: $brow-dark;
+            color: $white;
+        } 
+    } 
+}
+
+.btn-brown{
+    background: $brown-medium;
+    border: 1px solid $brow-dark;
+    border: 1px solid black !important;
+    background-color: #f9f9f9;
+    color:  $white;
+    text-transform: uppercase;
+    @include shadows(-8px 8px 0px 0px $brown-light);
+    @include shadows(-8px 8px 0px 0px #c8c8c8);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Avenir;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    &.btn-small{
+        @include shadows(-5px 5px 0px 0px $brown-light);
+        &:hover, &:focus{
+            @include shadows(-5px 5px 0px 0px $brown-light);
+        }
+    }
+    &.btn-block{
+        height: 50px;
+    }
+    &:hover, &:focus{
+        background: $brow-dark;
+        border-color: $brow-dark;
+        border: none !important;
+        color: white !important;
+        @include shadows(-8px 8px 0px 0px $brown-light);
+    }
+}
+
+.btn-black{
+    background: $dark !important;
+    border: 1px solid $white !important;;
+    color:  $white !important;
+    text-transform: uppercase;
+    @include shadows(-8px 8px 0px 0px $gray-dark);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Avenir;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    &.btn-block{
+        height: 53px;
+    }
+    &:hover{
+        background: $brown-light !important;
+        border-color: $brown-medium !important;
+        color: $brown-medium !important;
+        @include shadows(-8px 8px 0px 0px $brown-light);
+    }
+}
+
+
+.btn-link{
+    &.link-gray{
+        color: $gray-medium;
+        text-decoration: none;
+        padding: 0;
+        font-weight: 500;
+        transition: color 1s;
+        &:hover{
+            color:$brown-medium;
+            text-decoration: none;
+        }
+    }
+}
+
+.link-brown-linght{
+    color: $brown-medium;
+    font-weight: 600;
+    text-decoration: underline;   
+}
+
+
+.btn-txt-white{
+    color: $white;
+    text-decoration: none;
+    transition: color 1s;
+    &:hover{
+        color:$brown-medium;
+        text-decoration: none;
+    }
+}

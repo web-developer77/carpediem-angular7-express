@@ -1,0 +1,97 @@
+@import '../../../assets/css/admin.scss';
+
+.add {
+    display: block;
+  
+    &_form {
+      padding: 2rem;
+      flex: 0 0 65%;
+    }
+  
+    &_side {
+      flex: 0 0 35%;
+    }
+  
+  }
+  
+  .instructor-thumb {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  label {
+    color: #252631;
+    font-family: 'Roboto';
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+  
+  .instructor-box {
+    background-color: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 4px;
+    width: 97.6%;
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+  
+  .settings {
+    display: block;
+  
+    &_box {
+      display: block;
+      padding: 2rem;
+      margin: 3rem;
+      background-color: #FCFAF8;
+      border: 1px solid #DACABA;
+      border-radius: 4px;
+    }
+  
+    &_title {
+      color: #252631;
+      font-family: Roboto;
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 3rem;
+    }
+  
+    &_text {
+      color: #98A9BC;
+      font-family: Roboto;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 1rem 0;
+    }
+  }
+  
+  .mylabel {
+    color: #778CA2;
+    font-family: Roboto;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1 !important;
+    white-space: normal !important;
+  }
+
+  .images-container{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .back-img{
+    width: 90%;
+    position: relative;
+  }
+  .image-div{
+    position: relative;
+    width: 45%;
+    margin-right: 10px; 
+  }
+
+
+  .delete-img{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+  }

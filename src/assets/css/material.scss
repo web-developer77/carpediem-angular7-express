@@ -1,0 +1,80 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-custom-primary-color:  (
+    50 : #f4efea,
+    100 : #e3d7cb,
+    200 : #d1bda9,
+    300 : #bfa386,
+    400 : #b18f6c,
+    500 : #a37b52,
+    600 : #9b734b,
+    700 : #916841,
+    800 : #885e38,
+    900 : #774b28,
+    A100 : #ffd8bb,
+    A200 : #ffba88,
+    A400 : #ff9d55,
+    A700 : #ff8e3b,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$my-custom-accent-color: (
+    50 : #f4efea,
+    100 : #e3d7cb,
+    200 : #d1bda9,
+    300 : #bfa386,
+    400 : #b18f6c,
+    500 : #a37b52,
+    600 : #9b734b,
+    700 : #916841,
+    800 : #885e38,
+    900 : #774b28,
+    A100 : #ffd8bb,
+    A200 : #ffba88,
+    A400 : #ff9d55,
+    A700 : #ff8e3b,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+.mat-checkbox-layout {
+    white-space: normal !important;
+    line-height: 1 !important;
+  }
+
+$my-app-primary: mat-palette($my-custom-primary-color);
+$my-app-accent:  mat-palette($my-custom-accent-color, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-deep-orange);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);

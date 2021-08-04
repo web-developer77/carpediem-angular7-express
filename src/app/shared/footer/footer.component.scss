@@ -1,0 +1,13 @@
+.footer{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    &_text{
+        color: #98A9BC;
+        font-family: 'Roboto';
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+}

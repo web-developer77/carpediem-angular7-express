@@ -1,0 +1,41 @@
+body{
+    background-color: #f9f9f9;
+}
+
+.intro-container {
+    height: 100vh;
+    padding: 0;
+    position: relative;
+    .container{
+        height: 100%;
+    }
+}
+
+.wrapper-general{
+    &.simple{
+        padding-top: 82px; 
+        .header-container{
+            background: $dark;
+        }
+    }
+    .intro-container{
+        section{
+            padding-top: 134px;
+        }
+    }
+}
+
+
+.pages-container{
+    &__head{
+        margin-bottom: 30px;
+        .title-line{
+            margin-bottom: 10px;
+        }
+        p{
+            font-size: 14px;
+            line-height: 1.5;
+            color: #252631;
+        }
+    }
+}

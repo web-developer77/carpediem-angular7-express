@@ -1,0 +1,57 @@
+<div class="lds-ring abs-center" *ngIf="loading"><div></div><div></div><div></div><div></div></div>
+<div class="login">
+  <div class="login_form f-50 fm-100">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <h1 class="login_title">¡Bienvenido a Carpe Diem!</h1>
+      <p class='login_text'>Inicia sesión para conectarte contigo.</p>
+
+      <span *ngIf="!recover; else recoverUser">
+
+
+        <div class="f-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Correo</mat-label>
+            <input matInput type="text" name="email" placeholder="Correo" ngModel required>
+          </mat-form-field>
+        </div>
+
+        <div class="f-100">
+          <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" name="password" placeholder="Contraseña" ngModel required>
+          </mat-form-field>
+        </div>
+      </span>
+
+      <ng-template #recoverUser>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Correo</mat-label>
+          <input matInput type="text" name="email" placeholder="Correo" [(ngModel)]="email_recovery" required>
+        </mat-form-field>
+      </ng-template>
+
+
+
+      <div class="flex forget-box">
+        <div class="f-50 ">
+          <mat-checkbox ngModel checked name="recuerdame">Recuérdame</mat-checkbox>
+        </div>
+        <div class="psw-align">
+          <span (click)="recover = !recover" class="login_register" style="cursor: pointer">{{recover ? 'Ingresar' : '¿Olvidaste tu contraseña?'}}</span>
+        </div>
+      </div>
+      <div class="flex">
+        <button *ngIf="!recover; else getPassword" type="submit" [disabled]='loading' [ngClass]="{'active': loading}" class="btn_login width-100">¡A entrenar!</button>
+        <ng-template #getPassword>
+          <span class="btn_login width-100" style="text-align: center;" (click)="recoverPassword()">Recuperar contraseña</span>
+        </ng-template>
+
+      </div>
+
+      <p class="login_register">¿No tienes una cuenta?<span [routerLink]="['/register']" class="login_register-link">
+          &nbsp; Regístrate aquí</span> </p>
+
+    </form>
+  </div>
+  <div class="img f-50 web"></div>
+</div>

@@ -1,0 +1,390 @@
+<div *ngIf="loading" class="lds-ring abs-center" style="z-index: 999">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<div class="content">
+  <div class="box box_top flex">
+    <div class="f-70">
+      <p class="typo_title">Datos de {{ monthSelected }}</p>
+    </div>
+    <div class="f-30">
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+        <mat-label>Mes</mat-label>
+        <input
+          matInput
+          id="monthPicker"
+          name="monthPicker"
+          [matDatepicker]="monthPicker"
+          (click)="monthPicker.open()"
+          autocomplete="off"
+          [max]="maxDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="monthPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #monthPicker
+          startView="year"
+          (monthSelected)="selectMonth($event)"
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="box box_small">
+    <p class="typo_number">{{ todayIncome | currency: "MXN" }}</p>
+    <p class="typo_text-grey">Ingresos del día</p>
+  </div>
+
+  <div class="box box_small">
+    <p class="typo_number">{{ activeCount }}</p>
+    <p class="typo_text-grey">Clientes activos</p>
+  </div>
+
+  <div class="box box_medium">
+    <div class="flex space-between" style="flex-wrap: nowrap">
+      <div class="f-70">
+        <span class="typo_number">{{ totalMemberships | number }}</span>
+        <p class="typo_text-grey">Membresías activas</p>
+      </div>
+      <!-- <div class="f-30 datepick">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Mes</mat-label>
+          <input matInput id="membershipPicker" name="membershipPicker" [matDatepicker]="membershipPicker" (click)="membershipPicker.open()"
+          autocomplete="off" >
+          <mat-datepicker-toggle matSuffix [for]="membershipPicker"></mat-datepicker-toggle>
+          <mat-datepicker #membershipPicker startView="year" (monthSelected)="closeDatePicker($event)"></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    </div>
+    <div class="bar-chart" style="height: 62%">
+      <div *ngFor="let day of daysInMonth; index as i" class="day">
+        <div class="bar">
+          <div
+            [ngStyle]="{
+              height: (membershipsChart[i] * 100) / membershipsChartMax + '%',
+              'background-color': membershipsChartColor
+            }"
+            (mouseover)="hoverDay = day"
+            (mouseout)="hoverDay = null"
+          >
+            <div *ngIf="hoverDay === day" class="detail-box">
+              <div>{{ day.slice(0, -7) }}</div>
+              <span>{{ membershipsChart[i] }} </span>
+            </div>
+          </div>
+        </div>
+        <div class="day-number">
+          <div>{{ day.split(" ")[0] }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex">
+      <div class="f-50 pad-r-2">
+        <div
+          (click)="selectMemberships('bookingAvailable')"
+          class="flex f-center pointer"
+        >
+          <img class="eye-icon" src="/assets/icons/view-claro.png" alt="" />
+          <span class="typo_text-grey"
+            >Membresías nuevas
+            <span style="color: #000">{{ newTotal | number }}</span></span
+          >
+        </div>
+        <mat-progress-bar
+          class="brown-progress"
+          mode="determinate"
+          [value]="(newTotal / totalMemberships) * 100"
+        ></mat-progress-bar>
+
+        <div (click)="selectMemberships('renew')" class="flex f-center pointer">
+          <img class="eye-icon" src="/assets/icons/view-claro.png" alt="" />
+          <span class="typo_text-grey"
+            >Membresías renovadas
+            <span style="color: #000">{{ renewTotal | number }}</span></span
+          >
+        </div>
+        <mat-progress-bar
+          class="blue-progress"
+          mode="determinate"
+          [value]="(renewTotal / totalMemberships) * 100"
+        ></mat-progress-bar>
+      </div>
+      <div class="f-50 pad-r-2">
+        <div
+          (click)="selectMemberships('canceled')"
+          class="flex f-center pointer"
+        >
+          <img class="eye-icon" src="/assets/icons/view-claro.png" alt="" />
+          <span class="typo_text-grey"
+            >Membresías canceladas
+            <span style="color: #000">{{ canceledTotal | number }}</span></span
+          >
+        </div>
+        <mat-progress-bar
+          class="red-progress"
+          mode="determinate"
+          value="(canceledTotal / totalMemberships) * 100"
+        ></mat-progress-bar>
+
+        <div class="flex f-center">
+          <img class="eye-icon" src="/assets/icons/view-claro.png" alt="" />
+          <span class="typo_text-grey"
+            >Próximas renovaciones
+            <span style="color: #000">{{ nextTotal | number }} </span></span
+          >
+        </div>
+        <mat-progress-bar
+          class="green-progress"
+          mode="determinate"
+          [value]="(nextTotal / totalMemberships) * 100"
+        ></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box_medium-short">
+    <div class="flex space-between" style="flex-wrap: nowrap">
+      <div class="f-70 fm-100">
+        <span class="typo_number" style="color: #34eb40">{{
+          totalIncome | currency: "MXN"
+        }}</span>
+        <p class="typo_text-grey">Ingresos Mensuales por pagos en mostrador</p>
+      </div>
+      <!-- <div class="f-30 fm-100 datepick">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Mes</mat-label>
+          <input matInput id="incomePicker" name="incomePicker" [matDatepicker]="incomePicker" (click)="incomePicker.open()"
+          autocomplete="off" >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #incomePicker startView="year" (monthSelected)="closeDatePicker($event)"></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    </div>
+    <div class="bar-chart" style="height: 80%">
+      <div *ngFor="let day of daysInMonth; index as i" class="day">
+        <div class="bar">
+          <div
+            [ngStyle]="{
+              height: (incomeChart[i] * 100) / incomeChartMax + '%',
+              'background-color': '#34eb40'
+            }"
+            (mouseover)="hoverIncome = day"
+            (mouseout)="hoverIncome = null"
+          >
+            <div *ngIf="hoverIncome === day" class="detail-box">
+              <div>{{ day.slice(0, -7) }}</div>
+              <span>{{ incomeChart[i] | currency: "MXN" }} </span>
+            </div>
+          </div>
+        </div>
+        <div class="day-number">
+          <div>{{ day.split(" ")[0] }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box_small-long">
+    <p class="typo_title">Asistencia</p>
+    <div class="flex">
+      <div class="f-50 fm-100 border">
+        <p class="typo_text mar-b-1"><b>Disciplina</b></p>
+        <div class="sub-box">
+          <p class="typo_text-grey">Indoor Cycling</p>
+          <p class="typo_number" style="padding: 2rem 0">
+            {{ assistenceType[0] | number }}
+          </p>
+          <hr />
+        </div>
+        <div class="sub-box">
+          <p class="typo_text-grey">Yoga</p>
+          <p class="typo_number" style="padding: 2rem 0">
+            {{ assistenceType[1] | number }}
+          </p>
+        </div>
+        <hr />
+        <div class="sub-box mar-b-2">
+          <p class="typo_text-grey">Funcional</p>
+          <p class="typo_number" style="padding: 2rem 0">
+            {{ assistenceType[2] | number }}
+          </p>
+        </div>
+      </div>
+      <div class="f-50 fm-100" style="padding: 2rem">
+        <p class="typo_text mar-b-1"><b>Horario</b></p>
+        <table style="padding: 0; border-spacing: 0 2em">
+          <tr>
+            <td class="typo_text">Lunes</td>
+            <td class="typo_text typo_right">{{ assistenceDay[1] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Martes</td>
+            <td class="typo_text typo_right">{{ assistenceDay[2] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Miércoles</td>
+            <td class="typo_text typo_right">{{ assistenceDay[3] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Jueves</td>
+            <td class="typo_text typo_right">{{ assistenceDay[4] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Viernes</td>
+            <td class="typo_text typo_right">{{ assistenceDay[5] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Sábado</td>
+            <td class="typo_text typo_right">{{ assistenceDay[6] }}</td>
+          </tr>
+          <tr>
+            <td class="typo_text">Domingo</td>
+            <td class="typo_text typo_right">{{ assistenceDay[0] }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box_small-long">
+    <p class="typo_title">Asistencia por instructor</p>
+    <perfect-scrollbar>
+      <table>
+        <tr *ngFor="let instructor of assistenceInstructor | keyvalue">
+          <td class="typo_text">{{ instructor.value.name }}</td>
+          <td class="typo_text typo_right">
+            %
+            {{
+              (instructor.value.assistence / instructor.value.total_spots) * 100
+                | number: "1.1"
+            }}
+          </td>
+        </tr>
+      </table>
+    </perfect-scrollbar>
+  </div>
+
+  <div class="box box_medium">
+    <p class="typo_title">Cumpleaños</p>
+    <perfect-scrollbar>
+      <table>
+        <tr *ngFor="let user of birthdays">
+          <td class="typo_text">{{ user.name }} {{ user.last_name }}</td>
+          <td class="typo_text typo_right">{{ user.born }}</td>
+        </tr>
+      </table>
+    </perfect-scrollbar>
+  </div>
+
+  <div class="box box_small-medium">
+    <p class="typo_title">Paquetes Vendidos</p>
+    <p class="typo_number" style="padding-top: 1.5rem">
+      {{ packagesTotal | number }}
+    </p>
+    <table>
+      <tr>
+        <td class="typo_text">Primera Clase</td>
+        <td class="typo_text typo_right">{{ incomePackage[0] | number }}</td>
+      </tr>
+      <tr>
+        <td class="typo_text">Una Clase</td>
+        <td class="typo_text typo_right">{{ incomePackage[1] | number }}</td>
+      </tr>
+      <tr>
+        <td class="typo_text">5 Clases</td>
+        <td class="typo_text typo_right">{{ incomePackage[2] | number }}</td>
+      </tr>
+      <tr>
+        <td class="typo_text">10 Clases</td>
+        <td class="typo_text typo_right">{{ incomePackage[3] | number }}</td>
+      </tr>
+      <tr>
+        <td class="typo_text">25 Clases</td>
+        <td class="typo_text typo_right">{{ incomePackage[4] | number }}</td>
+      </tr>
+      <tr>
+        <td class="typo_text">50 Clases</td>
+        <td class="typo_text typo_right">{{ incomePackage[5] | number }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box box_small-medium">
+    <p class="typo_title">Retención</p>
+    <p class="typo_number" style="padding-top: 1.5rem">15%</p>
+
+    <table>
+      <tr>
+        <td class="typo_text">Primera Clase</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">Una Clase</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">5 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">10 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">25 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">50 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box box_small-medium">
+    <p class="typo_title">Conversión</p>
+    <p class="typo_number" style="padding-top: 1.5rem">29%</p>
+    <table>
+      <tr>
+        <td class="typo_text">Primera Clase</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">Una Clase</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">5 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">10 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">25 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+      <tr>
+        <td class="typo_text">50 Clases</td>
+        <td class="typo_text typo_right">90</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box box_small-medium">
+    <p class="typo_title">Clientes Ausentes</p>
+    <p class="typo_text-grey">Durante las ultimas 2 semenas</p>
+    <perfect-scrollbar>
+      <ul style="padding: 1.5rem 0">
+        <li class="typo_text" *ngFor="let user of inactiveUsers">
+          {{ user.name }}
+        </li>
+      </ul>
+    </perfect-scrollbar>
+  </div>
+</div>

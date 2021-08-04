@@ -1,0 +1,35 @@
+<nav class="sidebar flex-inverse">
+  <div class="sidebar_logo">
+    <img src="/assets/generales/logo.png" alt="">
+  </div>
+    <ul (click)="hideMenu()" class="sidebar_container flex-inverse">
+      <li [routerLink]="['/admin/home']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/inicio.png" class="sidebar_icon" alt=""> <a>Inicio</a>
+      </li>
+      <li [routerLink]="['/admin/classes']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/clases.png" class="sidebar_icon" alt="">  <a>Clases</a>
+      </li>
+      <li [routerLink]="['/admin/reservations']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/reservaciones.png" class="sidebar_icon" alt=""><a> Reservaciones</a>
+      </li>
+      <li [routerLink]="['/admin/users']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/usuarios.png" class="sidebar_icon" alt=""><a> Usuarios</a>
+      </li>
+      <li [routerLink]="['/admin/instructors']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/instructores.png" class="sidebar_icon" alt=""><a> Instructores</a>
+      </li>
+      <li [routerLink]="['/admin/store']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/tienda.png" class="sidebar_icon" alt=""><a> Store</a>
+      </li>
+      <li [routerLink]="['/admin/ba']" [routerLinkActive]="['sidebar_active']" class="sidebar_link">
+        <img src="/assets/icons/kpi.png" class="sidebar_icon kpi" alt=""><a> KPI's</a>
+      </li>
+
+      <li [routerLink]="['/admin/add-class']" class="add-class">
+        Agregar clase
+      </li>
+      <li (click)="authService.SignOut()" class="sidebar_link sidebar_bottom">
+        <img src="/assets/icons/cerrar_sesion.png" class="sidebar_icon" alt=""><a> Cerrar Sesión</a>
+      </li>
+    </ul>
+</nav>

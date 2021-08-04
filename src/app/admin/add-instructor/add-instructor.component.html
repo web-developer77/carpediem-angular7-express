@@ -1,0 +1,317 @@
+<div class="content">
+  <div class="add box">
+    <div *ngIf="loading" class="lds-ring abs-center">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <form #f="ngForm" (ngSubmit)="createInstructor(f)">
+      <div class="flex">
+        <div class="add_form right-border">
+          <h3 class="black-title">
+            {{ edit ? "Edita" : "Agrega nuevo" }} instructor
+          </h3>
+          <div class="flex">
+            <div class="instructor-box">
+              <div class="flex">
+                <div class="f-20 flex">
+                  <img
+                    *ngIf="!thumb"
+                    src="/assets/icons/user.jpg"
+                    style="margin: auto; height: 60px"
+                    alt=""
+                  />
+                  <img
+                    class="instructor-thumb"
+                    *ngIf="thumb"
+                    src="{{ thumb }}"
+                    alt=""
+                  />
+                  <input
+                    class="input_file"
+                    type="file"
+                    (change)="parseFile($event.target.files[0])"
+                  />
+                </div>
+                <div class="f-40">
+                  <mat-form-field
+                    appearance="outline"
+                    [hideRequiredMarker]="true"
+                  >
+                    <mat-label>Nombre</mat-label>
+                    <input
+                      type="text"
+                      name="name"
+                      [(ngModel)]="instructor.name"
+                      matInput
+                      required
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="f-40">
+                  <mat-form-field
+                    appearance="outline"
+                    [hideRequiredMarker]="true"
+                  >
+                    <mat-label>Apellido</mat-label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      [(ngModel)]="instructor.last_name"
+                      matInput
+                      required
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Email</mat-label>
+                <input
+                  name="email"
+                  type="email"
+                  [(ngModel)]="instructor.email"
+                  matInput
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Tipo de clase</mat-label>
+                <mat-select
+                  name="type"
+                  [(ngModel)]="instructor.class_type"
+                  required
+                >
+                  <mat-option value="Indoor Cycling">Indoor Cycling</mat-option>
+                  <mat-option value="Yoga">Yoga</mat-option>
+                  <mat-option value="Funcional">Funcional</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Teléfono</mat-label>
+                <input
+                  name="phone"
+                  type="phone"
+                  [(ngModel)]="instructor.phone"
+                  matInput
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="f-50 fm-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Fecha de cumpleaños</mat-label>
+                <input
+                  matInput
+                  name="birthday"
+                  [(ngModel)]="instructor.birthday"
+                  [matDatepicker]="picker"
+                  (click)="picker.open()"
+                  autocomplete="off"
+                  required
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="f-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Descripción</mat-label>
+                <textarea
+                  matInput
+                  name="description"
+                  [(ngModel)]="instructor.description"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="f-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Frase</mat-label>
+                <textarea
+                  matInput
+                  name="phrase"
+                  [(ngModel)]="instructor.phrase"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="f-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Breve trayectoria</mat-label>
+                <textarea
+                  matInput
+                  name="trayectory"
+                  [(ngModel)]="instructor.trayectory"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="f-100">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                <mat-label>Más de</mat-label>
+                <textarea
+                  matInput
+                  name="more"
+                  [(ngModel)]="instructor.more"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="f-50">
+              <p>Agregar fondo a perfil</p>
+              <input
+                type="file"
+                (change)="addBackground($event.target.files)"
+              />
+              <div class="back-img" *ngIf="instructor?.backgroundsrc">
+                <img [src]="instructor?.backgroundsrc" alt="" width="100%" />
+                <img
+                  class="delete-img"
+                  src="/assets/icons/basura.png"
+                  alt=""
+                  (click)="deleteback()"
+                />
+              </div>
+            </div>
+
+            <div class="f-50">
+              <p>Agregar fotos a galeria</p>
+              <input type="file" (change)="addImage($event.target.files)" />
+              <div class="images-container">
+                <div
+                  class="image-div"
+                  *ngFor="let image of instructor.images; index as i"
+                >
+                  <img [src]="image" width="100%" alt="" />
+                  <img
+                    class="delete-img"
+                    src="/assets/icons/basura.png"
+                    alt=""
+                    (click)="deleteimg(i)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-end mar-t-2">
+            <button
+              type="button"
+              mat-button
+              mat-raised-button
+              class="btn_white"
+              color="secondary"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              mat-button
+              mat-raised-button
+              class="btn_gold"
+              color="accent"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+
+        <div class="add_side">
+          <div class="settings">
+            <div class="settings_box">
+              <h5 class="settings_title">Información adicional</h5>
+              <mat-checkbox
+                name="reservations"
+                [(ngModel)]="emergency_contact"
+                class="mylabel"
+                >Contacto de emergencia
+              </mat-checkbox>
+              <mat-form-field
+                style="margin-top: 1rem"
+                *ngIf="emergency_contact"
+                appearance="outline"
+                [hideRequiredMarker]="true"
+              >
+                <mat-label>Nombre del contacto de emergencia</mat-label>
+                <input
+                  type="text"
+                  name="emergency_contact"
+                  [(ngModel)]="instructor.emergency_contact"
+                  matInput
+                  placeholder="Escribe el nombre y apellido"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                *ngIf="emergency_contact"
+                appearance="outline"
+                [hideRequiredMarker]="true"
+              >
+                <mat-label>Teléfono de contacto de emergencia</mat-label>
+                <input
+                  type="text"
+                  name="emergency_phone"
+                  [(ngModel)]="instructor.emergency_phone"
+                  matInput
+                  placeholder="Escribe el télefono"
+                />
+              </mat-form-field>
+
+              <mat-checkbox
+                name="limitCheck"
+                [(ngModel)]="injury"
+                class="mylabel"
+                >Alguna lesión o dolor que deberíamos saber</mat-checkbox
+              >
+              <div>
+                <p *ngIf="injury" class="settings_text">
+                  Esta información nos ayuda a que te cuidemos de la mejor forma
+                  y tengas el mejor rendimiento
+                </p>
+                <mat-form-field
+                  *ngIf="injury"
+                  appearance="outline"
+                  [hideRequiredMarker]="true"
+                >
+                  <mat-label>Escribe estado de salud</mat-label>
+                  <input
+                    type="text"
+                    name="limitNumber"
+                    [(ngModel)]="instructor.health"
+                    matInput
+                    placeholder="Escribe estado de salud"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

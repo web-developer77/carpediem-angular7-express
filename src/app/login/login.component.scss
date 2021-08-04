@@ -1,0 +1,79 @@
+@import '../../assets/css/admin.scss';
+
+
+.login {
+  display: flex;
+  min-height: 100vh;
+
+  &_form {
+    padding: 8rem;
+    background-color: #F9F9F9;
+
+    @media screen and (max-width: 900px) {
+      padding: 70px 20px;
+    }
+  }
+
+  &_title {
+    color: #313232;
+    font-family: 'Avenir-Heavy';
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-decoration: underline;
+  }
+
+  &_text {
+    color: #252631;
+    font-family: 'Avenir';
+    font-weight: 300;
+    margin: 1rem 0 3rem 0;
+    font-size: 1.4rem;
+  }
+
+  &_register {
+    display: block;
+    margin: auto;
+    font-family: 'Avenir';
+    text-align: center;
+    font-size: 14px;
+    color: #272727;
+  }
+
+  &_register-link {
+    font-family: 'Avenir';
+    text-align: center;
+    font-size: 14px;
+    color: #A47B51;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+
+.img {
+  background: url('/assets/generales/login.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-checkbox-label{
+  font-size: 14px;
+  font-family: 'Avenir';
+}
+
+.forget-box{
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px !important;
+  font-family: 'Avenir' !important;
+}
+
+.active{
+  background-color: #A37B52;
+  color: #F9F9F9;
+}

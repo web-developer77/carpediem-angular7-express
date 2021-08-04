@@ -1,0 +1,163 @@
+@import "../../../assets/css/user.scss";
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.intro-container {
+  &__head {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    width: inherit;
+    .title-line {
+      color: $white;
+      margin-bottom: 35px;
+    }
+    .btn {
+      @media screen and (max-width: 768px) {
+        font-size: 12px;
+      }
+    }
+  }
+  &__footer {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    p {
+      line-height: 1;
+      a {
+        text-decoration: underline;
+        color: $white;
+        transition: color 1s;
+        &:hover {
+          color: $brown-medium;
+        }
+      }
+    }
+  }
+}
+
+.intro-social-media,
+.book-class {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+}
+.intro-social-media {
+  position: absolute;
+  left: -200px;
+  top: 45%;
+  a {
+    &:nth-child(odd) {
+      padding-right: 15px;
+    }
+    &:nth-child(even) {
+      padding-left: 15px;
+    }
+  }
+}
+
+.book-class {
+  position: absolute;
+  right: -40px;
+  top: 45%;
+}
+
+.btn-blacky {
+  width: 292px;
+  height: 53.3px;
+  border: solid 1px #ffffff;
+  background-color: #000000;
+  color: white;
+  text-transform: uppercase;
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.texty {
+  width: 291px;
+  height: 19px;
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.29px;
+  text-align: center;
+  color: #191919;
+  border-radius: 0px !important;
+}
+
+.texty:hover {
+  color: #a47b52;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #8b5b2a;
+}
+
+.img-gray {
+  img {
+    filter: grayscale(1);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .row .membership-container__row {
+    width: 46rem !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .book-button {
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 292px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.modal-links {
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn-black-friday {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  p {
+    margin-bottom: unset;
+    font-weight: bold;
+    font-size: 16px;
+    // &:hover {
+    //   color: #a47b52;
+    // }
+  }
+}
+
+.black-friday-text {
+  font-size: 10px;
+  width: 100%;
+  background: red;
+}
+
+.abs-center-mobile {
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,18 @@
+.black-container{
+    background: linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/assets/generales/header-home.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+    p, h1, h2{
+        color: white;
+    }
+    .title-line{
+        border-color: $white;
+    }
+}
+
+
+section{
+    padding: 50px 0;
+}

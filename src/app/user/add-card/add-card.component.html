@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Agregar tarjeta de crédito</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="flex f-center" #f="ngForm" (ngSubmit)="paymentForm(f)">
+    <div *ngIf="loading " class="lds-ring abs-center"><div></div><div></div><div></div><div></div></div>
+        
+    <div  class="col-12">
+      <div class="pages-container__head">
+        <p>Ingresa los datos de tu tarjeta:</p>
+      </div>
+
+      <div class="create-card">
+        <div class="create-card__menu">
+          <ul class='cards-list'>
+            <li><button [ngClass]="{'active-card': payment.card_number?.charAt(0) == 4 }"
+                class="create-card__type visa">Visa</button></li>
+            <li><button [ngClass]="{'active-card': payment.card_number?.charAt(0) == 5 }"
+                class="create-card__type master">Master</button></li>
+            <li><button [ngClass]="{'active-card':payment.card_number?.charAt(0) == 3 }"
+                class="create-card__type american">american</button></li>
+          </ul>
+        </div>
+        <div class="create-card__info">
+          <div class="form-create">
+            <div class="row form-create__section">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+                <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Nombre completo de la tarjeta </mat-label>
+                  <input type="text" placeholder="nombre" name="holder_name" matInput
+                    [(ngModel)]="payment.holder_name" required>
+                </mat-form-field>
+
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-4 mt-md-0">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Número de la tarjeta</mat-label>
+                  <input placeholder="número" name="card_number" [(ngModel)]="payment.card_number"
+                    [cleave]="{creditCard: true}" required matInput>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+            <div class="row form-create__section">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <input type="text" maxlength="2" matInput placeholder="MM" name="expiration_month"
+                        [(ngModel)]="payment.expiration_month" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                      <input type="text" maxlength="2" matInput placeholder="AA" name="expiration_year"
+                        [(ngModel)]="payment.expiration_year" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+                  <mat-label>Código de seguridad</mat-label>
+                  <input type="string" matInput maxlength="4" placeholder="3 o 4 digitos" name="cvv2"
+                    [(ngModel)]="payment.cvv2" required>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <button [disabled]="loading" class="btn btn-brown btn-block" type="submit">Agregar</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-block btn-light" [mat-dialog-close]="true" cdkFocusInitial>Cerrar</button>
+</mat-dialog-actions>
